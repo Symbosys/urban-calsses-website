@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Urban Class | India's Most Loved Learning Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1B4DFF", // Signature Blue
+                        "secondary": "#0F172A", // Deep Navy
+                        "accent": "#FACC15",  // Gold/Yellow Accent
+                        "background-light": "#FFFFFF",
+                        "background-alt": "#F8FAFC",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-sans text-secondary bg-background-light;
+            }
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .batch-card {
+            @apply border border-slate-200 bg-white rounded-xl overflow-hidden transition-all duration-300 flex-shrink-0 w-[320px];
+        }
+        .batch-card:hover {
+            @apply shadow-xl border-primary/20;
+        }
+        .nav-link {
+            @apply text-sm font-medium text-slate-600 hover:text-primary transition-colors flex items-center gap-1;
+        }
+        .geometric-bg {
+            background-color: #f0f7ff;
+            background-image:  radial-gradient(#1b4dff20 1px, transparent 1px), radial-gradient(#1b4dff20 1px, #f0f7ff 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        .goal-tile {
+            @apply flex flex-col items-center justify-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-pointer text-center gap-2;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<header class="sticky top-0 z-50 w-full bg-white border-b border-slate-100 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 lg:px-6">
+<div class="flex justify-between items-center h-16 lg:h-20 gap-8">
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white text-xl font-bold">school</span>
+</div>
+<span class="text-xl font-extrabold text-secondary tracking-tight">Urban Class</span>
+</div>
+<div class="hidden md:flex flex-1 max-w-md relative">
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search for courses, batches or skills..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-xl">search</span>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="nav-link" href="#">Study Material</a>
+<a class="nav-link" href="#">Courses <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span></a>
+<a class="nav-link" href="#">Results</a>
+<a class="nav-link" href="#">Offline Centres</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-sm font-semibold text-primary px-6 py-2 border border-primary rounded-full hover:bg-primary/5 transition-colors">Login</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all">Enroll Now</button>
+</div>
+</div>
+</div>
+</header>
+<main>
+<section class="geometric-bg relative overflow-hidden py-12 lg:py-16">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="order-2 lg:order-1 space-y-8">
+<div class="space-y-4">
+<h1 class="text-4xl lg:text-6xl font-extrabold text-secondary leading-tight">
+                                India's Most Loved <br/>
+<span class="text-primary">Learning Platform</span>
+</h1>
+<p class="text-lg lg:text-xl text-slate-600 max-w-xl leading-relaxed">
+                                Quality education that is affordable and accessible for every student. Start your journey towards excellence today with our expert-led courses.
+                            </p>
+</div>
+<div class="space-y-6">
+<h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+<span class="w-8 h-[2px] bg-slate-200"></span>
+                                Select Your Goal
+                            </h3>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="goal-tile">
+<div class="w-12 h-12 bg-blue-50 text-primary flex items-center justify-center rounded-xl mb-1">
+<span class="material-symbols-outlined text-3xl">menu_book</span>
+</div>
+<span class="text-sm font-bold text-secondary">School</span>
+</div>
+<div class="goal-tile">
+<div class="w-12 h-12 bg-orange-50 text-orange-500 flex items-center justify-center rounded-xl mb-1">
+<span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+</div>
+<span class="text-sm font-bold text-secondary">JEE</span>
+</div>
+<div class="goal-tile">
+<div class="w-12 h-12 bg-red-50 text-red-500 flex items-center justify-center rounded-xl mb-1">
+<span class="material-symbols-outlined text-3xl">medical_services</span>
+</div>
+<span class="text-sm font-bold text-secondary">NEET</span>
+</div>
+<div class="goal-tile">
+<div class="w-12 h-12 bg-green-50 text-green-500 flex items-center justify-center rounded-xl mb-1">
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+</div>
+<span class="text-sm font-bold text-secondary">Govt Exams</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="bg-primary text-white px-10 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                                Explore Batches
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="bg-white text-secondary border-2 border-slate-200 px-10 py-4 rounded-xl font-bold text-lg hover:border-primary/30 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined fill-current text-primary">play_circle</span>
+                                Watch Demo
+                            </button>
+</div>
+<div class="flex items-center gap-4 text-sm font-medium text-slate-500">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5D71C0lpFe_SvBkSxhIonY6KtLCOerURFh0vFrNP6USkL5IovPCW9OB8IQ7_MHiZN071Hg1-P1U4BYf8r0KUqognMw44x2iwmn42XL7R4V4JY6LA16eZHLBZGDwF6S3iVQDkfxOsfRs0bXc1Nnl2DHT02BR1GB4-JvMttwTYNumVrx4zs4WQ4eC_G8-x6HuVc5Oxybl44rQbUSSM7nWXjPGeXSYB3-6nbUbM6_wBYKT6knNowWvKi100EMaLS24CmLJ9FOrY0w9I"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA26StWlWkU33osAhwU9oyaehilRL0WZUHVsrofmBTlzfJ35BzaaoHtY795Ydhll7OwRM3Djw7llN16v3bsQI_sR17yM2gufePuW21FUpFlVeWVn5x85-xMmFhuszg2MXz00q2IMC40LIeatQvb7ZebCnaCT-f8DU-5qLtqK-v5fySU5iIq9_hjUQe6ipMw84fLQJ23cOjwfLvGSGQjurqPmOueQ9K1tlaQnvTJJCbDFeMEHkM-XCzTcwik7gVHkZf-FtqrGumVbRU"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeD27SFsO8MOv-yAhitwHnJUFcsbNDYYhppMuxX9_RTb4L_m8uRJLk5B0Fvotd75LynioepDTohrafCe5YluGhxYqg2SFwV5UTJrObRnd889Uq_jikR5sMLY7ZUNzq3GmZPthqVNZpQKQX5XlbUjZpshoZOmLFLx40qDFMSUqvL0rGuXtBmPMSYCtkHN1tFT3gRaRp2wI9gJJLB8k_sW1jQsuKAzJ_LnhUrBhoBg4d8N7Zz0IS5En9fmwyyVlF6QvlhTzDTDjXqyI"/></div>
+</div>
+<span>Joined by 1.2 Crore+ students</span>
+</div>
+</div>
+<div class="order-1 lg:order-2 relative flex justify-center lg:justify-end">
+<div class="relative w-full max-w-[500px]">
+<div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl bg-white aspect-[4/5] border-8 border-white">
+<img class="w-full h-full object-cover object-top" data-alt="Lead Educator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLwhb5go0NblCxlZtR-fax1j2t5VZhBt3EKWS-3FdQcoPTHIO0ZOhTfsdFt2F7GugGkCdDTktQN12tan2W9IGjLr5wCSNTwvF9RPD5raV3_kcuBqzjw0csYukaEtaKTAu4fR6-QESne07mSvVdOnLBtBWqM43lys-Y7rYOyeJt2b3ZoOms7THEh23V4KIM-nxZPUCp8Ry7YFz50H0p_5FLfJpyC1H-5dcq6-lQSYQQ4RwjoFiKqsE0OY0zlGf1JHTZl_wmwnkHbc"/>
+<div class="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white">
+<p class="text-2xl font-bold">Prof. Aris Thorne</p>
+<p class="text-sm text-white/90 font-medium">Head of Urban Engineering &amp; Planning</p>
+</div>
+</div>
+<div class="absolute -top-6 -right-6 bg-accent p-4 rounded-2xl shadow-xl z-20 border-4 border-white rotate-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-3xl font-bold">workspace_premium</span>
+<div>
+<p class="text-xs font-black text-secondary uppercase leading-none">Top Rated</p>
+<p class="text-xl font-black text-secondary">Educator</p>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-4 -left-10 bg-white p-5 rounded-2xl shadow-2xl z-20 border border-slate-100 flex items-center gap-4 -rotate-2">
+<div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-green-600 font-bold">trending_up</span>
+</div>
+<div>
+<p class="text-lg font-black text-secondary">95% Success</p>
+<p class="text-xs font-medium text-slate-400">Student Placement Ratio</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="bg-white border-y border-slate-100 py-10">
+<div class="max-w-7xl mx-auto px-6">
+<p class="text-center text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-8">Trusted by Global Educational Partners</p>
+<div class="flex flex-wrap justify-center gap-12 opacity-50 grayscale">
+<div class="font-black text-xl italic tracking-tighter">METRO CORP</div>
+<div class="font-black text-xl italic tracking-tighter">URBAN GRID</div>
+<div class="font-black text-xl italic tracking-tighter">PLANNING ASSOC.</div>
+<div class="font-black text-xl italic tracking-tighter">CITY LABS</div>
+<div class="font-black text-xl italic tracking-tighter">FUTURE SPACE</div>
+</div>
+</div>
+</div>
+<section class="py-16 bg-background-alt">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-3xl font-extrabold text-secondary">Trending Batches</h2>
+<p class="text-slate-500 mt-2">Pick the best batch to accelerate your learning journey</p>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 group">
+                        View All <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-8 hide-scrollbar">
+<div class="batch-card">
+<div class="relative">
+<img class="w-full h-44 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArVzyFJhI4AomZ8XqEr3uEayHpoDVvOgxAsStFb2ya3boKIQ09DXUhDo-1ARwX4no-sUacXHwWIN6pyIBhARnSsXSKq4dY8nG00QBQBiI7TB_O_hfg9xKbU6Leev_UQDA88qo39Up5PJd63alq3eSZt-lofa9tqynle6iPUW3aRDQh4ipxF1tqceY-hxcaTINX2JB_lwKCxFiLd1i92OUFDhozTBkHlulBhgyjSF2wIj_hKdW1kgf1DEs4_vZRTQfaLM65t0FQNhg"/>
+<span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">LIVE</span>
+</div>
+<div class="p-5">
+<h3 class="font-bold text-lg mb-2 text-secondary leading-tight line-clamp-2">Urban Planning Foundations 2.0 (Alpha Batch)</h3>
+<div class="flex gap-4 text-xs text-slate-500 mb-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">videocam</span> Live Classes</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">description</span> Notes</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase font-bold">Limited Offer</span>
+<div class="flex items-center gap-2">
+<span class="text-xl font-black text-secondary">₹4,999</span>
+<span class="text-sm text-slate-400 line-through">₹9,999</span>
+</div>
+</div>
+<button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-bold">Buy Now</button>
+</div>
+</div>
+</div>
+<div class="batch-card">
+<div class="relative">
+<img class="w-full h-44 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0xDdnixeDdHFDk-Ek88aCK12l0r0L7hhtyMPCmko3MSTVQ-3j_wSne3JaduX2qJxRUC5TXbzIZlDGZL4Is6awhZ5bmJs18b1mf060IB2QOniw8ZjYNpILFK3AztOC70aBGN_rf7eAoMYrhUV6CdvtFgeAFvmldPE_6asQQ7UnTU7qdZOROBultk1biSer1VUE5uKr60zpro0xWpvErtzXARBge9zRBRYuXPbAARHvKS7TE-9HWXVTlfOWhe3N4sT8BlSAudk2H4Y"/>
+<span class="absolute top-3 left-3 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Recorded</span>
+</div>
+<div class="p-5">
+<h3 class="font-bold text-lg mb-2 text-secondary leading-tight line-clamp-2">Smart City Data Analytics - Advanced Program</h3>
+<div class="flex gap-4 text-xs text-slate-500 mb-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">history</span> Lifetime</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified</span> Certificate</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase font-bold">Special Pricing</span>
+<div class="flex items-center gap-2">
+<span class="text-xl font-black text-secondary">₹2,499</span>
+<span class="text-sm text-slate-400 line-through">₹5,999</span>
+</div>
+</div>
+<button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-bold">Buy Now</button>
+</div>
+</div>
+</div>
+<div class="batch-card">
+<div class="relative">
+<img class="w-full h-44 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzJhns1C4T99Pjlm29Jk_KxY_ealGN2sm6eiZ5Yb_waUftdORyOt6v8a7yl8bwnyjFgFBUPHesCLB_gferQn-4M1jFMO2EihNImDGr2Yx3t-BpmwO9E3pERW05G2EGdlq2oN1uIGw2j5FzKfd4-1CPut7FzvXV1SkJntwYwNWpWvM6C1Fs0X0jqyXU3AWRmePU4OzvR5SYyxbB-czDcszxNRDpje9jtVh4npOHNg7o8h4MBoeBgSlyo3xgrNr1yUCYGNKx_9KWT5k"/>
+<span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded">BESTSELLER</span>
+</div>
+<div class="p-5">
+<h3 class="font-bold text-lg mb-2 text-secondary leading-tight line-clamp-2">Sustainable Urban Design &amp; Commercial Growth</h3>
+<div class="flex gap-4 text-xs text-slate-500 mb-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">videocam</span> Live</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">description</span> 200+ PDFs</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase font-bold">Flash Sale</span>
+<div class="flex items-center gap-2">
+<span class="text-xl font-black text-secondary">₹3,299</span>
+<span class="text-sm text-slate-400 line-through">₹7,999</span>
+</div>
+</div>
+<button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-bold">Buy Now</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-white">
+<div class="max-w-7xl mx-auto px-6">
+<div class="bg-secondary rounded-[2.5rem] overflow-hidden">
+<div class="grid lg:grid-cols-2 gap-0">
+<div class="p-12 lg:p-20 text-white flex flex-col justify-center">
+<div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+</div>
+<h2 class="text-4xl font-extrabold mb-6">Experience Hybrid Learning at Urban Vidyapeeth</h2>
+<p class="text-slate-300 text-lg mb-10 leading-relaxed">
+                                Bring your dreams to reality with our world-class offline infrastructure. India's best faculty is now in your city.
+                            </p>
+<div class="space-y-6">
+<p class="text-sm font-bold uppercase tracking-widest text-primary">Select your nearest center</p>
+<div class="flex gap-4">
+<select class="flex-1 bg-white/10 border-white/20 rounded-xl py-4 px-6 text-white focus:ring-primary">
+<option class="text-secondary">Choose City</option>
+<option class="text-secondary">Mumbai</option>
+<option class="text-secondary">Delhi</option>
+<option class="text-secondary">Bangalore</option>
+<option class="text-secondary">Pune</option>
+</select>
+<button class="bg-white text-secondary font-bold px-8 py-4 rounded-xl hover:bg-slate-100 transition-colors">Explore</button>
+</div>
+</div>
+</div>
+<div class="relative min-h-[400px] lg:min-h-full">
+<div class="absolute inset-0 bg-primary/10">
+<img class="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqz3WfxjG1jAZye0gbKq6CnRt79qcpIZIEQYUD-ZGXqy2iHGQMyPwVLvD_IM4P_FAr6I-DHAskSeKyRGgWRdGoYzXMKFQi79c5CvomNi_rxTY3iZFi6_CFWAZs71l7GQx4KBtEE8j3KdnNx3yRtz62ths-WOg2IYTW3ibwxqop6N7Ak26hW-E2q8hOIsSYt9usNoS2H8NZAvwPb-l855piUoA9S2-8toP2OvdguA5AfWUpK3IS2y6Aw3whWmOKS9YrMreHIFmg-_Q"/>
+<div class="absolute inset-0 bg-gradient-to-r from-secondary to-transparent"></div>
+</div>
+<div class="absolute bottom-10 left-10 right-10 flex gap-4">
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-xl flex-1 text-center">
+<p class="text-3xl font-black text-white">50+</p>
+<p class="text-xs text-white/60 uppercase">Centres</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-xl flex-1 text-center">
+<p class="text-3xl font-black text-white">100k+</p>
+<p class="text-xs text-white/60 uppercase">Offline Students</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-blue-50/50">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col items-center text-center mb-12">
+<h2 class="text-3xl font-extrabold text-secondary">Start For Free</h2>
+<p class="text-slate-500 mt-2">No commitment, just pure learning. Quality education for everyone.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-white p-6 rounded-2xl border border-blue-100 hover:shadow-lg transition-all group">
+<div class="h-40 bg-slate-100 rounded-xl mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMuB9OFlzC5AU56043Y_3MDmiD_UOhddHGzUPZ2zVSEEjEFH198S35i1M6VDbsNIvRGQKi8C1PsDGy_QE7O9s_57ENiThzHlEtMeFV-4rGgujxtsF76sogGUCqIrFo7h1bBybYhZvnWDChp7XYUJWZXb4EIawykFCqOXq9mYemP5m1VgOoiyn-ucPl02lRSwsl9M0f6xoqOcJoBsK5-md8PoO9ALuWet9u8RQqDN7hWB0V4AQ9DlrwDvP5vlZpOMNRySM5zkvoZko"/>
+</div>
+<h3 class="font-bold text-secondary mb-3">Urban Planning Basics</h3>
+<p class="text-sm text-slate-500 mb-6">4 hours of core concepts delivered by top mentors.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-white transition-all">Watch Now</button>
+</div>
+<div class="bg-white p-6 rounded-2xl border border-blue-100 hover:shadow-lg transition-all group">
+<div class="h-40 bg-slate-100 rounded-xl mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY6-8k0AgMD1InKqOXLVEcY7Ow10BtJQD1Pk7J44US7vIVIeZulw5KH257w13J5pi_V-Ojjz3fJ3i3I7xQk7yqFHAloVzsJWmMv_WiXjRVdYrIbYVgJWlFNChyWKlMfCOJIAEQNUi5KFQqGX6iT1VATlsy7UiiWZCOnwTuyAQv53P9dSMf3QIJbD2o5VCuno5X-dj8TLJmxc8HNY7nhF4zmDi05PHcRUrC-n4VSsZ6HWonAPCs78bnooVykYkmAzfLOtDt1pskrpQ"/>
+</div>
+<h3 class="font-bold text-secondary mb-3">Bridge Design Workshop</h3>
+<p class="text-sm text-slate-500 mb-6">Live hands-on workshop on modern structural design.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-white transition-all">Watch Now</button>
+</div>
+<div class="bg-white p-6 rounded-2xl border border-blue-100 hover:shadow-lg transition-all group">
+<div class="h-40 bg-slate-100 rounded-xl mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLwhb5go0NblCxlZtR-fax1j2t5VZhBt3EKWS-3FdQcoPTHIO0ZOhTfsdFt2F7GugGkCdDTktQN12tan2W9IGjLr5wCSNTwvF9RPD5raV3_kcuBqzjw0csYukaEtaKTAu4fR6-QESne07mSvVdOnLBtBWqM43lys-Y7rYOyeJt2b3ZoOms7THEh23V4KIM-nxZPUCp8Ry7YFz50H0p_5FLfJpyC1H-5dcq6-lQSYQQ4RwjoFiKqsE0OY0zlGf1JHTZl_wmwnkHbc"/>
+</div>
+<h3 class="font-bold text-secondary mb-3">Smart City Orientation</h3>
+<p class="text-sm text-slate-500 mb-6">Introduction to IoT and urban infrastructure.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-white transition-all">Watch Now</button>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-white">
+<div class="max-w-7xl mx-auto px-6 text-center">
+<h2 class="text-4xl font-extrabold text-secondary mb-4">Our Top Performers</h2>
+<p class="text-slate-500 mb-16">Witness the success stories of students who made it to the top firms.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+<div class="space-y-4 text-center">
+<div class="aspect-square rounded-2xl overflow-hidden border-4 border-accent shadow-lg mx-auto">
+<img alt="Top Performer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuqpzxYiMabjVxzKNXGOUjxd5vWSSklHOTfj4sXLAAf86PQIBicfKQ70rN-ggVpPTBpfZ5DSQnsY4exXF5NSn1OCYICx1itsQOKSKTMhDe-qup8_R4uXvEyo44iu5BpbFk2Ru30IPLX_8vWsoRoL93m-8Gw0Rc_sgNgoQ0bVSSJYwWHyk9Bxp5lJzOBckPIiVEDd70rfahOw86O-OGrzGRlOpqk5UrhoGAqcBaFKmHRvKCecfmxiJChB-M-lvh3HlsS9Rd3zRzm9E"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Rohan Mehra</p>
+<p class="text-xs text-primary font-bold uppercase">City Plan Rank 1</p>
+</div>
+</div>
+<div class="space-y-4 text-center">
+<div class="aspect-square rounded-2xl overflow-hidden border-4 border-slate-100 shadow-lg mx-auto">
+<img alt="Top Performer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRAKdCZkP7o2_CGQlobvbEtiy3u8z2BZVcb23GoyNwbsYXfmeBBjKyHn31OMgjfC-jDEoM4dUUklYvcjgUhesHNUHPMMpeC66UPkDdCOjixKflTsGiOF1rUzyuT5un97Utt800ZYys5dT--3abVj0dBflDyi5a6eCT7mocUu3UuAHegZJzmtMf-YE80tNpwVZ9WYl-sAYB2fILIu77vfrO-kjpjpiaug3oMAs2T0KO9p4g799aGSNSd6KADiScAQTU2lF7pcnpI4o"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Sanya Iyer</p>
+<p class="text-xs text-primary font-bold uppercase">Design Rank 4</p>
+</div>
+</div>
+<div class="space-y-4 text-center">
+<div class="aspect-square rounded-2xl overflow-hidden border-4 border-slate-100 shadow-lg mx-auto">
+<img alt="Top Performer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjtOGXJFrqEMdgnmWd1XMe9Whce_x2BMfz-nOLwz7cUDU00SYr-k6_wXWb-EC9cZ97OhDY9rBUIe5oUX14kG1JnmSBPxWrsH99fTsXIqmeuiIOTskBPC4u6Xd-YlDObt_wYXu2b6rDH8aKavYD_jH4zUDO4hGgURlZE7E0iRDQ7jQTinero65xdlmr_5xK1yHlfIziVyUQImyt_BG7EKIxdFGb0Wi45QBca0s7py7r-RTRK4Apje5hWz-7enagzvSK3MjYAfDcqeg"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Aryan Khan</p>
+<p class="text-xs text-primary font-bold uppercase">Structure Rank 7</p>
+</div>
+</div>
+<div class="space-y-4 text-center">
+<div class="aspect-square rounded-2xl overflow-hidden border-4 border-slate-100 shadow-lg mx-auto">
+<img alt="Top Performer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC6gPPLIJtbrYH_JqQXXz5niW5e_iKk21DNZ6aA8uwbqpXJ0dnyShIIIY2W5T3Sj3MdhIgLf1Agpw2GmUNY4o2R0v-OnjiwDRZkFKehcQI23jaSBReJWS3-Oiv7LJLJiomvEyXRYkNsbZ-vOe1AwNCaDxbJ8U-RUe94FRK08Y4r8hhW0eWGfwqu0Qy8iY_0N6d-uqvIF5mwgiBZi6wL9hI9Xn9v_3SMyA9xiM8BIon8YXbgIXuBL6WQxa8VM9kVe-k7SSNVIuFmv8"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Lisa Wang</p>
+<p class="text-xs text-primary font-bold uppercase">GIS Rank 2</p>
+</div>
+</div>
+<div class="space-y-4 text-center hidden lg:block">
+<div class="aspect-square rounded-2xl overflow-hidden border-4 border-slate-100 shadow-lg mx-auto">
+<img alt="Top Performer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF5zyc5FemO8pFebxfcEHhjMtbFBywtyLUZVFfnXsyNK15CKWt57u2FCU3p6wZ8LCCVZGknsruZeiL5WRR95wVWxKw5B3V6bLBWn7QyNRQ3cbiznA_lPSMMUtmUBRN1ZB2mRAQ3eLdq0KlBoA8w8BCXzJteYXFaBGz-D599P3h6r0zeBWS5p0S35q95mgHc74UZu7oYCordmtXKHKcofn4hGXwosMuiqb8prT-ydg6atTsSi6fjyFpRYoovIXErQ4-AqxlqAwrtF0"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Kevin Smith</p>
+<p class="text-xs text-primary font-bold uppercase">Transit Rank 9</p>
+</div>
+</div>
+</div>
+<button class="mt-16 px-10 py-4 bg-secondary text-white font-bold rounded-xl hover:bg-slate-800 transition-all shadow-lg">View Hall of Fame</button>
+</div>
+</section>
+</main>
+<footer class="bg-slate-900 text-white pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1 space-y-6">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white text-lg">school</span>
+</div>
+<span class="text-xl font-bold tracking-tight">Urban Class</span>
+</div>
+<p class="text-slate-400 text-sm leading-relaxed">
+                        India's leading platform for professional urban development education. Empowering students with skills that build future cities.
+                    </p>
+<div class="flex gap-3">
+<a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">video_library</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold mb-6">Quick Links</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Our Faculty</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Urban Vidyapeeth</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Success Stories</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Popular Courses</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Urban Planning</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Sustainable Transit</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Civic Data Analytics</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Smart Governance</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Download App</h4>
+<p class="text-slate-400 text-sm mb-6">Learn anytime, anywhere with our mobile application.</p>
+<div class="flex flex-col gap-3">
+<a class="bg-white/10 p-3 rounded-lg flex items-center gap-3 hover:bg-white/20 transition-all" href="#">
+<span class="material-symbols-outlined">play_arrow</span>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold text-slate-400 leading-none">Get it on</p>
+<p class="text-sm font-bold">Google Play</p>
+</div>
+</a>
+<a class="bg-white/10 p-3 rounded-lg flex items-center gap-3 hover:bg-white/20 transition-all" href="#">
+<span class="material-symbols-outlined">ios</span>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold text-slate-400 leading-none">Download on the</p>
+<p class="text-sm font-bold">App Store</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
+<p>© 2024 Urban Class Edutech Pvt. Ltd. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-white" href="#">Privacy Policy</a>
+<a class="hover:text-white" href="#">Terms of Use</a>
+<a class="hover:text-white" href="#">Contact Us</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>
