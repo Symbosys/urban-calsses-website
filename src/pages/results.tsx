@@ -185,6 +185,7 @@ const ResultsPage = () => {
                       src={topper.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
                       alt={topper.studentName}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
                     />
                     {/* Year overlay */}
                     <div className="absolute bottom-3 left-3 px-2 py-0.5 bg-black/50 backdrop-blur-md rounded text-white text-[8px] font-bold">
@@ -235,6 +236,7 @@ const ResultsPage = () => {
                     src={`https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop`} 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                     alt="Interview"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all shadow-2xl shadow-blue-600/50">

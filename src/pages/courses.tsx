@@ -124,7 +124,7 @@ const CoursesPage = () => {
                     />
                   )}
                   {hasImageUrl ? (
-                    <img src={iconObj.secure_url} alt="" className="relative z-10 w-5 h-5 object-contain" />
+                    <img src={iconObj.secure_url} alt="" className="relative z-10 w-5 h-5 object-contain" loading="lazy" />
                   ) : (
                     <Icon size={20} className="relative z-10" />
                   )}
@@ -172,6 +172,7 @@ const CoursesPage = () => {
                             src={course.thumbnail?.secure_url || "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop"} 
                             alt={course.title} 
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                            loading="lazy"
                           />
                           <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40`} />
                           

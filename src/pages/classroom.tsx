@@ -107,7 +107,14 @@ const Classroom = () => {
              </button>
              <div className="w-px h-8 bg-slate-800/50 mx-2" />
              <div className="flex items-center gap-4 px-6 py-3 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-600/30">
-                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-black">RK</div>
+                <div className="w-11 h-11 rounded-xl overflow-hidden shadow-lg border-2 border-white/20">
+                   <img 
+                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop" 
+                    className="w-full h-full object-cover" 
+                    alt="Instructor" 
+                    loading="lazy"
+                   />
+                </div>
                 <div>
                    <p className="text-[10px] font-black uppercase tracking-widest leading-none mb-1 opacity-70">Instructor</p>
                    <p className="text-sm font-black leading-none">Dr. RK Verma</p>
@@ -133,6 +140,7 @@ const Classroom = () => {
                   src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1932&auto=format&fit=crop" 
                   alt="Board"
                   className="w-full h-full object-cover transition-transform duration-[5s] group-hover:scale-105"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                 
@@ -314,8 +322,15 @@ const Classroom = () => {
                          <MessageSquare size={16} className="text-blue-500" /> Participation
                       </h4>
                       <div className="flex -space-x-3">
-                        {[1,2,3].map(i => (
-                          <div key={i} className="w-6 h-6 rounded-full border-2 border-slate-900 bg-slate-700 flex items-center justify-center text-[8px] font-black text-white">U</div>
+                        {[1,2,3,4].map(i => (
+                          <div key={i} className="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-700 overflow-hidden">
+                             <img 
+                               src={`https://i.pravatar.cc/150?u=${i + 10}`} 
+                               className="w-full h-full object-cover" 
+                               alt="User" 
+                               loading="lazy"
+                             />
+                          </div>
                         ))}
                       </div>
                    </div>

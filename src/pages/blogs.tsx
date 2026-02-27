@@ -92,7 +92,7 @@ const BlogPage = () => {
             >
               <div className="grid lg:grid-cols-2">
                  <div className="relative aspect-video lg:aspect-auto overflow-hidden">
-                    <img src={featuredPost.thumbnail?.secure_url || "https://images.unsplash.com/photo-1532187875605-1ef63823db17?q=80&w=2070&auto=format&fit=crop"} alt={featuredPost.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                    <img src={featuredPost.thumbnail?.secure_url || "https://images.unsplash.com/photo-1532187875605-1ef63823db17?q=80&w=2070&auto=format&fit=crop"} alt={featuredPost.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent lg:hidden" />
                  </div>
                  <div className="p-12 lg:p-20 flex flex-col justify-center">
@@ -110,7 +110,7 @@ const BlogPage = () => {
                        <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-2xl bg-slate-700 overflow-hidden shrink-0">
                             {featuredPost.authorImage?.secure_url && (
-                               <img src={featuredPost.authorImage.secure_url} alt="" className="w-full h-full object-cover" />
+                               <img src={featuredPost.authorImage.secure_url} alt="" className="w-full h-full object-cover" loading="lazy" />
                             )}
                           </div>
                           <div>
@@ -186,7 +186,7 @@ const BlogPage = () => {
                       }`}
                     >
                        <div className="relative aspect-video m-4 rounded-[2.5rem] overflow-hidden">
-                          <img src={post.thumbnail?.secure_url || "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"} alt={post.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                          <img src={post.thumbnail?.secure_url || "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"} alt={post.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" loading="lazy" />
                           <div className="absolute top-6 left-6">
                              <span className="px-4 py-2 bg-black/40 backdrop-blur-xl border border-white/20 rounded-xl text-white font-black text-[10px] uppercase tracking-widest">
                                 {post.category || "General"}
@@ -215,7 +215,7 @@ const BlogPage = () => {
                              <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-xl bg-slate-700 overflow-hidden">
                                   {post.authorImage?.secure_url && (
-                                     <img src={post.authorImage.secure_url} alt="" className="w-full h-full object-cover" />
+                                     <img src={post.authorImage.secure_url} alt="" className="w-full h-full object-cover" loading="lazy" />
                                   )}
                                 </div>
                                 <span className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>{post.authorName || "Team Urban"}</span>

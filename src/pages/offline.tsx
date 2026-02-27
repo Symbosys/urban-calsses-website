@@ -154,6 +154,7 @@ const OfflineCentersPage = () => {
                       src={center.image?.secure_url || "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"} 
                       alt={center.name} 
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-6 left-6 flex items-center gap-2">

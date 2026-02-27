@@ -58,6 +58,7 @@ const HallOfFame = () => {
                   alt={p.name || ""} 
                   className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" 
                   src={p.avatar?.secure_url || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop"} 
+                  loading="lazy"
                 />
               </div>
               <div className="space-y-1">

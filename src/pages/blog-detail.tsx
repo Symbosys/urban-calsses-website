@@ -76,7 +76,7 @@ const BlogDetail = () => {
             <div className="flex items-center justify-between py-10 border-y border-white/5 mb-12">
                  <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl bg-slate-700 overflow-hidden shrink-0 shadow-xl">
-                        {blog.authorImage?.secure_url && <img src={blog.authorImage.secure_url} alt="" className="w-full h-full object-cover" />}
+                        {blog.authorImage?.secure_url && <img src={blog.authorImage.secure_url} alt="" className="w-full h-full object-cover" loading="lazy" />}
                     </div>
                     <div>
                         <p className="text-bases font-black">{blog.authorName || "Team Urban"}</p>
@@ -100,6 +100,7 @@ const BlogDetail = () => {
                 src={blog.thumbnail?.secure_url || "https://images.unsplash.com/photo-1532187875605-1ef63823db17?q=80&w=2070&auto=format&fit=crop"} 
                 alt={blog.title} 
                 className="w-full aspect-[21/9] object-cover" 
+                loading="lazy"
             />
         </div>
 
@@ -125,7 +126,7 @@ const BlogDetail = () => {
                        {relatedPosts.map((post: any) => (
                            <Link key={post.id} to={`/blogs/${post.slug}`} className="group block">
                                <div className="aspect-video rounded-3xl overflow-hidden mb-4 border border-white/5 shadow-xl">
-                                   <img src={post.thumbnail?.secure_url} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                                   <img src={post.thumbnail?.secure_url} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
                                </div>
                                <h5 className="font-black text-sm group-hover:text-blue-500 transition-colors line-clamp-2">{post.title}</h5>
                            </Link>

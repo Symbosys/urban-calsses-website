@@ -231,7 +231,7 @@ const StudyMaterial = () => {
                     theme === 'dark' ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-white border-slate-200 hover:border-blue-200 shadow-sm'
                  }`}>
                     <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg transform group-hover:scale-105 transition-transform">
-                       <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1887&auto=format&fit=crop" className="w-full h-full object-cover" alt="User" />
+                       <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1887&auto=format&fit=crop" className="w-full h-full object-cover" alt="User" loading="lazy" />
                     </div>
                     <div>
                        <p className={`text-xs font-black tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>A. Johnson</p>
@@ -291,6 +291,7 @@ const StudyMaterial = () => {
                         src={res.img} 
                         className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 group-hover:rotate-1" 
                         alt="" 
+                        loading="lazy"
                        />
                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
                        
