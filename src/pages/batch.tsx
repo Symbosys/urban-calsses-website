@@ -108,7 +108,7 @@ const BatchesPage = () => {
   });
 
   return (
-    <div className={`pt-20 min-h-screen transition-all duration-700 ${
+    <div className={`pt-36 min-h-screen transition-all duration-700 ${
       theme === 'dark' ? "bg-[#0b0f1a]" : "bg-slate-50"
     }`}>
       {/* Revolutionary Hero section */}
@@ -176,7 +176,7 @@ const BatchesPage = () => {
             
             {/* Elite Filter Sidebar (Floating on Desktop) */}
             <aside className="lg:col-span-3 xl:w-80">
-               <div className={`sticky top-32 p-10 rounded-[3rem] border transition-all ${
+               <div className={`sticky top-40 p-10 rounded-[3rem] border transition-all ${
                  theme === 'dark' ? 'bg-[#161b2c]/40 border-white/5' : 'bg-white border-slate-200'
                }`}>
                   <div className="flex items-center gap-3 mb-10">

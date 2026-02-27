@@ -1,14 +1,17 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowRight, Sun, Moon, Search, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowRight, Sun, Moon, Search, ChevronDown, LogOut } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
+import { useAuthStore } from "../store/authStore";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useThemeStore();
+  const { isAuthenticated, user, logout } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,9 +22,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Study Material", path: "/study-material" },
+    { name: "Blogs", path: "/blogs" },
     { name: "Courses", path: "/courses", dropdown: true },
-    { name: "Batches", path: "/batches" },
+    // { name: "Batches", path: "/batches" },
     { name: "Results", path: "/results" },
     { name: "Offline Centres", path: "/offline" },
   ];
@@ -62,16 +65,7 @@ const Navbar = () => {
           <div className="hidden xl:flex flex-1 max-w-sm mx-12">
             <div className="relative w-full group">
                <div className="absolute inset-0 bg-blue-600/5 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition-opacity" />
-               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={18} />
-               <input 
-                 type="text" 
-                 placeholder="Search courses..."
-                 className={`w-full py-3.5 pl-14 pr-6 rounded-2xl border outline-none transition-all text-xs font-bold ${
-                   theme === 'dark' 
-                    ? "bg-white/5 border-white/5 text-white focus:border-blue-500/50" 
-                    : "bg-slate-100 border-transparent text-slate-900 focus:bg-white focus:border-blue-500/30"
-                 }`}
-               />
+              
             </div>
           </div>
 
@@ -106,19 +100,55 @@ const Navbar = () => {
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button className={`px-6 py-3.5 border-2 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
-              theme === 'dark' ? 'border-white/10 text-white hover:bg-white/5' : 'border-blue-600 text-blue-600 hover:bg-blue-50'
-            }`}>
-               Login
-            </button>
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${
+                    theme === 'dark' ? 'border-white/10 hover:bg-white/5' : 'border-blue-600/20 hover:bg-blue-50'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xs">
+                    {user?.name?.charAt(0) || 'U'}
+                  </div>
+                  <ChevronDown size={14} className={theme === 'dark' ? 'text-white' : 'text-slate-900'} />
+                </button>
+
+                {showUserDropdown && (
+                  <div className={`absolute right-0 mt-4 w-64 rounded-3xl border shadow-2xl p-4 animate-in fade-in slide-in-from-top-4 duration-300 ${
+                    theme === 'dark' ? 'bg-[#0f172a] border-white/10' : 'bg-white border-slate-200'
+                  }`}>
+                    <div className="px-4 py-3 border-b border-white/5 mb-2">
+                      <p className={`text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Logged in as</p>
+                      <p className={`text-sm font-black truncate ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{user?.name}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setShowUserDropdown(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-rose-500 hover:bg-rose-500/10 transition-all text-xs font-black uppercase tracking-widest"
+                    >
+                      <LogOut size={16} /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/auth/login" className={`px-6 py-3.5 border-2 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                theme === 'dark' ? 'border-white/10 text-white hover:bg-white/5' : 'border-blue-600 text-blue-600 hover:bg-blue-50'
+              }`}>
+                 Login
+              </Link>
+            )}
             <Link
               to="/courses"
-              className="relative group overflow-hidden px-8 py-3.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-[0.15em] rounded-2xl transition-all shadow-xl shadow-blue-600/30 active:scale-95"
+              // className="relative group overflow-hidden px-8 py-3.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-[0.15em] rounded-2xl transition-all shadow-xl shadow-blue-600/30 active:scale-95"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10 flex items-center gap-2 text-white">
-                Enroll Now <ArrowRight size={14} />
-              </span>
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10 flex items-center gap-2 text-white"> */}
+                {/* Enroll Now <ArrowRight size={14} /> */}
+              {/* </span> */}
             </Link>
           </div>
 

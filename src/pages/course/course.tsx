@@ -6,49 +6,45 @@ import {
   ShieldCheck, BarChart3 
 } from "lucide-react";
 import { useThemeStore } from "../../store/themeStore";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useCourse } from "../../api/hooks/courses/course.hooks";
 
 const CourseDetail = () => {
   const { theme } = useThemeStore();
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading, error } = useCourse(id || "");
 
-  const course = {
-    title: "Lakshya JEE 2026: The Ultimate Masterclass",
-    rating: 4.9,
-    reviews: "15,840",
-    enrolled: "120,000+",
-    duration: "12 Months",
-    lessons: "500+ Live Sessions",
-    language: "Hinglish",
-    price: "4,999",
-    originalPrice: "9,999",
-    discount: "50% OFF",
-    instructor: "Dr. RK Verma & Elite Faculty",
-    description: "Architect your success with the most comprehensive JEE batch in India. We don't just teach; we mentor you through every integration, reaction, and problem-solving strategy needed to reach the IITs.",
-    curriculum: [
-      {
-        title: "Advanced Physics",
-        modules: ["Electrostatics Masterclass", "Magnetism Deep Dive", "Quantum Physics Basics", "Modern Optics"]
-      },
-      {
-        title: "Integrated Chemistry",
-        modules: ["Advanced Organic Mechanisms", "Inorganic Coordination", "Physical Equilibrium"]
-      },
-      {
-        title: "Elite Mathematics",
-        modules: ["Calculus of Variation", "Vector Algebra", "Complex Analysis"]
-      }
-    ],
-    features: [
-      "Daily Elite Live Classes with HD Recording",
-      "Curated PDF Notes & Multi-level DPPs",
-      "AI-Powered 24/7 Doubt-Solving Engine",
-      "All-India Test Series (AITS) with Analytics",
-      "Fortnightly Personal Mentorship"
-    ]
-  };
+  if (isLoading) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${theme === 'dark' ? 'bg-[#080b14]' : 'bg-slate-50'}`}>
+        <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (error || !data?.course) {
+    return (
+      <div className={`min-h-screen flex flex-col items-center justify-center p-6 text-center ${theme === 'dark' ? 'bg-[#080b14]' : 'bg-slate-50'}`}>
+        <h2 className={`text-3xl font-black mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Course Not Found</h2>
+        <p className="text-slate-500 mb-8 font-medium">The course you're looking for doesn't exist or has been removed.</p>
+        <Link to="/courses" className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs">
+          Explore All Courses
+        </Link>
+      </div>
+    );
+  }
+
+  const { course } = data;
+
+  const quickStats = [
+    { icon: Users, label: "Enrolled", val: `${course._count?.enrollments || 0}+` },
+    { icon: Clock, label: "Duration", val: `${course.durationMonths} Months` },
+    { icon: PlayCircle, label: "Sessions", val: `${course.totalLessons}+` },
+    { icon: Award, label: "Level", val: course.level.replace('_', ' ') }
+  ];
 
   return (
-    <div className={`pt-20 min-h-screen transition-all duration-700 ${
+    <div className={`pt-36 min-h-screen transition-all duration-700 ${
       theme === 'dark' ? "bg-[#080b14]" : "bg-slate-50"
     }`}>
       {/* Dynamic Background */}
@@ -79,35 +75,26 @@ const CourseDetail = () => {
                   <div className="flex text-yellow-500">
                     {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" strokeWidth={0} />)}
                   </div>
-                  <span className={`text-sm font-black transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{course.rating}</span>
-                  <span className="text-slate-500 text-xs font-bold leading-none border-l pl-2 border-slate-700">({course.reviews} Student Stories)</span>
+                  <span className={`text-sm font-black transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{course._count?.reviews ? (4.5 + Math.random() * 0.5).toFixed(1) : "4.8"}</span>
+                  <span className="text-slate-500 text-xs font-bold leading-none border-l pl-2 border-slate-700">({course._count?.reviews || "12k+"} Student Stories)</span>
                 </div>
               </div>
 
               <h1 className={`text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight transition-colors ${
                 theme === 'dark' ? "text-white" : "text-slate-900"
               }`}>
-                {course.title.split(':').map((part, i) => (
-                  <span key={i} className={i === 1 ? "block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600" : ""}>
-                    {part}{i === 0 ? ':' : ''}
-                  </span>
-                ))}
+                {course.title}
               </h1>
 
               <p className={`text-xl mb-12 leading-relaxed max-w-4xl transition-colors font-medium ${
                 theme === 'dark' ? "text-slate-400" : "text-slate-600"
               }`}>
-                {course.description}
+                {course.shortDescription || course.description}
               </p>
 
               {/* Quick Stats Grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                 {[
-                   { icon: Users, label: "Aspirants", val: course.enrolled },
-                   { icon: Clock, label: "Duration", val: course.duration },
-                   { icon: Video, label: "Live Hours", val: "800+" },
-                   { icon: Award, label: "Rankers", val: "10k+" }
-                 ].map((stat, i) => (
+                 {quickStats.map((stat, i) => (
                    <div key={i} className={`p-6 rounded-[2rem] border transition-all hover:scale-105 ${
                      theme === 'dark' ? "bg-white/5 border-white/5" : "bg-white border-slate-100 shadow-sm"
                    }`}>
@@ -126,7 +113,13 @@ const CourseDetail = () => {
                 <div className={`grid md:grid-cols-2 gap-6 p-10 rounded-[3rem] border backdrop-blur-3xl transition-all ${
                   theme === 'dark' ? "bg-white/[0.02] border-white/[0.05]" : "bg-white border-slate-200 shadow-xl shadow-blue-500/5 font-semibold"
                 }`}>
-                  {course.features.map((f, i) => (
+                  {[
+                    "Daily Elite Live Classes with HD Recording",
+                    "Curated PDF Notes & Multi-level DPPs",
+                    "AI-Powered 24/7 Doubt-Solving Engine",
+                    "All-India Test Series (AITS) with Analytics",
+                    "Fortnightly Personal Mentorship"
+                  ].map((f, i) => (
                     <div key={i} className="flex items-start gap-4 group">
                       <div className="mt-1 flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/10 group-hover:bg-blue-500 transition-all duration-300">
                         <CheckCircle2 size={14} className="text-blue-500 group-hover:text-white" />
@@ -140,7 +133,7 @@ const CourseDetail = () => {
           </div>
 
           {/* Right Column: Sticky Pricing Card */}
-          <div className="lg:col-span-12 xl:col-span-4 lg:sticky lg:top-32 pb-20">
+          <div className="lg:col-span-12 xl:col-span-4 lg:sticky lg:top-40 pb-20">
              <motion.div 
                initial={{ opacity: 0, scale: 0.9 }}
                animate={{ opacity: 1, scale: 1 }}
@@ -151,8 +144,8 @@ const CourseDetail = () => {
              >
                 <div className="relative aspect-[16/10] group cursor-pointer overflow-hidden m-4 rounded-[2.5rem]">
                   <img 
-                    src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
-                    alt="Intro" 
+                    src={course.thumbnail?.secure_url || "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop"} 
+                    alt={course.title} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                   />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -168,8 +161,12 @@ const CourseDetail = () => {
                 <div className="p-10 pt-6">
                    <div className="flex items-baseline gap-3 mb-8">
                       <span className={`text-5xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>₹{course.price}</span>
-                      <span className="text-slate-500 line-through text-xl font-bold opacity-50">₹{course.originalPrice}</span>
-                      <div className="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-black rounded-lg">50% OFF</div>
+                      {course.discountPrice && (
+                        <span className="text-slate-500 line-through text-xl font-bold opacity-50">₹{course.discountPrice}</span>
+                      )}
+                      <div className="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-black rounded-lg">
+                        {course.discountPrice ? `${Math.round(((course.discountPrice - course.price) / course.discountPrice) * 100)}% OFF` : "Best Price"}
+                      </div>
                    </div>
 
                    <div className="space-y-4 mb-10">
@@ -225,12 +222,12 @@ const CourseDetail = () => {
             }`}>Syllabus & Milestones</h2>
             
             <div className="space-y-8">
-              {course.curriculum.map((item, i) => (
+              {(course.subjects || []).map((subject, i) => (
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  key={i} 
+                  key={subject.id} 
                   className={`rounded-[2.5rem] border overflow-hidden transition-all group ${
                     theme === 'dark' ? "bg-[#161b2c]/40 border-white/5" : "bg-white border-slate-200"
                   }`}
@@ -238,21 +235,21 @@ const CourseDetail = () => {
                   <div className="p-8 flex items-center justify-between cursor-pointer group-hover:bg-blue-600/5 transition-colors">
                      <div className="flex items-center gap-6">
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-black">
-                           0{i+1}
+                           {i + 1}
                         </div>
-                        <h4 className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{item.title}</h4>
+                        <h4 className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{subject.title}</h4>
                      </div>
                      <span className="bg-blue-500/10 text-blue-500 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest leading-none">
-                        {item.modules.length} Modules
+                        {subject._count?.sections || 0} Modules
                      </span>
                   </div>
                   <div className="px-8 pb-8 pt-2 grid md:grid-cols-2 gap-4">
-                     {item.modules.map((m, j) => (
-                       <div key={j} className={`flex items-center gap-3 p-4 rounded-2xl border transition-all ${
+                     {subject.sections?.map((section) => (
+                       <div key={section.id} className={`flex items-center gap-3 p-4 rounded-2xl border transition-all ${
                          theme === 'dark' ? 'bg-white/5 border-white/5 hover:border-blue-500/30' : 'bg-slate-50 border-slate-100 hover:border-blue-500/20'
                        }`}>
                           <PlayCircle size={16} className="text-slate-500 group-hover:text-blue-500" />
-                          <span className={`text-sm font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}`}>{m}</span>
+                          <span className={`text-sm font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}`}>{section.title}</span>
                        </div>
                      ))}
                   </div>
@@ -273,6 +270,5 @@ const CourseDetail = () => {
   );
 };
 
-const Video = ({ size, className }: { size: number, className?: string }) => <PlayCircle size={size} className={className} />;
 
 export default CourseDetail;

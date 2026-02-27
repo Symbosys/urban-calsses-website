@@ -3,16 +3,21 @@ import { motion } from "framer-motion";
 import { Award, Star } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 
-const performers = [
-  { name: "Rohan Mehra", rank: "City Plan Rank 1", color: "border-yellow-400", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop" },
-  { name: "Sanya Iyer", rank: "Design Rank 4", color: "border-slate-200", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop" },
-  { name: "Aryan Khan", rank: "Structure Rank 7", color: "border-slate-200", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" },
-  { name: "Lisa Wang", rank: "GIS Rank 2", color: "border-slate-200", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop" },
-  { name: "Kevin Smith", rank: "Transit Rank 9", color: "border-slate-200", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1887&auto=format&fit=crop" }
-];
+import { useInstructors } from "../api/hooks/instructor/instructor.hooks";
 
 const HallOfFame = () => {
   const { theme } = useThemeStore();
+  const { data, isLoading } = useInstructors({ limit: 5 });
+
+  if (isLoading) {
+    return (
+      <div className="py-24 text-center">
+        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      </div>
+    );
+  }
+
+  const instructors = data?.instructors || [];
 
   return (
     <section className="py-24 lg:py-40">
@@ -37,9 +42,9 @@ const HallOfFame = () => {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
-          {performers.map((p, i) => (
+          {instructors.map((p, i) => (
             <motion.div
-              key={i}
+              key={p.id}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
@@ -47,21 +52,19 @@ const HallOfFame = () => {
               className="space-y-6 group"
             >
               <div className={`aspect-square rounded-[2.5rem] overflow-hidden border-8 transition-all duration-700 group-hover:scale-105 group-hover:rotate-3 shadow-2xl ${
-                p.color === 'border-yellow-400' 
-                  ? 'border-yellow-400 shadow-yellow-400/20' 
-                  : theme === 'dark' ? 'border-white/5 shadow-white/5' : 'border-white shadow-blue-500/10'
+                theme === 'dark' ? 'border-white/5 shadow-white/5' : 'border-white shadow-blue-500/10'
               }`}>
                 <img 
-                  alt={p.name} 
+                  alt={p.name || ""} 
                   className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" 
-                  src={p.img} 
+                  src={p.avatar?.secure_url || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop"} 
                 />
               </div>
               <div className="space-y-1">
                 <p className={`text-lg font-black tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{p.name}</p>
                 <div className="flex items-center justify-center gap-2">
                    <Award size={12} className="text-blue-500" />
-                   <p className="text-[10px] text-blue-500 font-black uppercase tracking-widest">{p.rank}</p>
+                   <p className="text-[10px] text-blue-500 font-black uppercase tracking-widest">{p.specialization || "Expert Faculty"}</p>
                 </div>
               </div>
             </motion.div>

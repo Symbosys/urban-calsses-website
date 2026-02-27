@@ -3,8 +3,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Play, Pause, Volume2, Settings, Maximize, MessageSquare, 
-  HelpCircle, FileText, ChevronRight, Send,
-  BookOpen, Users, Download, Zap, Heart, BarChart3, Radio,
+  HelpCircle, FileText, Send,
+  BookOpen, Users, Download, Zap, BarChart3, Radio,
   Layout, Bookmark, Share2, MoreHorizontal, CheckCircle2,
   Clock, Award, Headphones
 } from "lucide-react";
@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const Classroom = () => {
   const { theme } = useThemeStore();
   const [activeTab, setActiveTab] = useState("chat"); 
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying] = useState(true);
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([
     { id: 1, user: "Karan Sharma", text: "Sir, does the flux depend on the shape of the Gaussian surface?", time: "4:02 PM", role: "student", avatar: "KS" },
@@ -47,7 +47,7 @@ const Classroom = () => {
   };
 
   return (
-    <div className={`pt-20 min-h-screen transition-all duration-700 font-sans ${
+    <div className={`pt-36 min-h-screen transition-all duration-700 font-sans ${
       theme === 'dark' ? "bg-[#05070a]" : "bg-slate-50"
     }`}>
       {/* Background Aesthetic */}

@@ -1,119 +1,38 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Star, ArrowRight, CheckCircle2, GraduationCap, Book, Sparkles, Zap, ShieldCheck, Trophy } from "lucide-react";
+import { Search, Star, ArrowRight, CheckCircle2, GraduationCap, Sparkles, Zap, ShieldCheck, Trophy } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { Link } from "react-router-dom";
 
-const categories = [
-  { id: "all", name: "All Batches", icon: Sparkles, color: "from-blue-500 to-indigo-600" },
-  { id: "jee", name: "IIT-JEE", icon: Zap, color: "from-orange-500 to-red-600" },
-  { id: "neet", name: "NEET UG", icon: GraduationCap, color: "from-emerald-500 to-teal-600" },
-  { id: "boards", name: "Class 12th", icon: Book, color: "from-purple-500 to-pink-600" },
-  { id: "foundation", name: "Foundation", icon: Trophy, color: "from-amber-500 to-yellow-600" },
-];
-
-const courseListing = [
-  {
-    id: "jee-2026",
-    title: "Lakshya JEE 2026",
-    category: "jee",
-    exam: "JEE Main & Advanced",
-    price: "4,999",
-    originalPrice: "9,999",
-    rating: 4.9,
-    enrolled: "85k+",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop",
-    features: ["Daily Live Classes", "PDF Notes & DPPs", "Doubt Solving Engine"],
-    tag: "🔥 Most Popular",
-    gradient: "from-blue-600/20 to-indigo-600/20"
-  },
-  {
-    id: "neet-2026",
-    title: "Yakeen NEET 2026",
-    category: "neet",
-    exam: "NEET UG",
-    price: "3,499",
-    originalPrice: "7,999",
-    rating: 4.8,
-    enrolled: "62k+",
-    image: "https://images.unsplash.com/photo-1532187875605-1ef63823db17?q=80&w=2070&auto=format&fit=crop",
-    features: ["Expert Biology Modules", "Physics Drill Sets", "24/7 Doubts"],
-    tag: "⭐ Top Rated",
-    gradient: "from-emerald-600/20 to-teal-600/20"
-  },
-  {
-    id: "boards-12",
-    title: "Super Boards 12th",
-    category: "boards",
-    exam: "CBSE & State Boards",
-    price: "2,499",
-    originalPrice: "4,999",
-    rating: 4.7,
-    enrolled: "45k+",
-    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop",
-    features: ["NCERT Coverage", "PYQ Analysis", "Sample Papers"],
-    tag: "📚 Academic Excellence",
-    gradient: "from-purple-600/20 to-pink-600/20"
-  },
-  {
-    id: "foundation-10",
-    title: "Foundation Plus 10",
-    category: "foundation",
-    exam: "Class 10th & Olympiad",
-    price: "1,999",
-    originalPrice: "3,999",
-    rating: 4.9,
-    enrolled: "38k+",
-    image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=2070&auto=format&fit=crop",
-    features: ["Concept Clarity", "Analytical Skills", "Mental Ability"],
-    tag: "🚀 Early Pro",
-    gradient: "from-amber-600/20 to-yellow-600/20"
-  },
-  {
-    id: "jee-crash",
-    title: "JEE Fastrack 2025",
-    category: "jee",
-    exam: "JEE Main Sprint",
-    price: "1,499",
-    originalPrice: "2,999",
-    rating: 4.6,
-    enrolled: "25k+",
-    image: "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=2070&auto=format&fit=crop",
-    features: ["Rank Booster Kit", "Last 10 Year PYQs", "Formula Sheets"],
-    tag: "⚡ Turbo Batch",
-    gradient: "from-red-600/20 to-orange-600/20"
-  },
-  {
-    id: "neet-dropper",
-    title: "Arjun NEET Droppers",
-    category: "neet",
-    exam: "NEET Repeaters",
-    price: "3,999",
-    originalPrice: "8,999",
-    rating: 4.8,
-    enrolled: "54k+",
-    image: "https://images.unsplash.com/photo-1576091160550-217359f4ecf8?q=80&w=2070&auto=format&fit=crop",
-    features: ["Intensive Practice", "Doubt Classes", "Personal Tracker"],
-    tag: "🏹 Mission NEET",
-    gradient: "from-indigo-600/20 to-blue-600/20"
-  }
-];
+import { useCourses } from "../api/hooks/courses/course.hooks";
+import { useCategories } from "../api/hooks/courses/category.hooks";
 
 const CoursesPage = () => {
   const { theme } = useThemeStore();
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredCourses = courseListing.filter(course => {
-    const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
-    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          course.exam.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+  const { data: categoryData } = useCategories();
+  const { data: coursesData, isLoading: coursesLoading } = useCourses({
+    categoryId: selectedCategoryId === "all" ? undefined : selectedCategoryId,
+    search: searchQuery || undefined
   });
 
+  const categories = [
+    { id: "all", name: "All Batches", icon: Sparkles, color: "from-blue-500 to-indigo-600" },
+    ...(categoryData?.categories || []).map(cat => ({
+      id: cat.id,
+      name: cat.name,
+      icon: cat.icon || GraduationCap,
+      color: "from-blue-500 to-indigo-600" // Default color, ideally from cat
+    }))
+  ];
+
+  const courses = coursesData?.courses || [];
+
   return (
-    <div className={`pt-20 min-h-screen transition-colors duration-500 overflow-hidden ${
+    <div className={`pt-36 min-h-screen transition-colors duration-500 overflow-hidden ${
       theme === 'dark' ? "bg-[#0b0f1a]" : "bg-slate-50"
     }`}>
       {/* Dynamic Background Elements */}
@@ -178,31 +97,41 @@ const CoursesPage = () => {
 
           {/* Categories */}
           <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((cat, i) => (
-              <motion.button
-                key={cat.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`relative flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-bold tracking-tight transition-all active:scale-95 group overflow-hidden ${
-                  selectedCategory === cat.id
-                    ? "text-white shadow-2xl"
-                    : theme === 'dark'
-                      ? "bg-[#161b2c]/60 text-slate-400 hover:text-white border border-slate-800"
-                      : "bg-white text-slate-600 hover:text-blue-600 border border-slate-200 shadow-sm"
-                }`}
-              >
-                {selectedCategory === cat.id && (
-                  <motion.div 
-                    layoutId="category-bg"
-                    className={`absolute inset-0 bg-gradient-to-br ${cat.color}`} 
-                  />
-                )}
-                <cat.icon size={20} className="relative z-10" />
-                <span className="relative z-10">{cat.name}</span>
-              </motion.button>
-            ))}
+            {categories.map((cat, i) => {
+              const Icon = typeof cat.icon === 'function' ? cat.icon : GraduationCap;
+              const iconObj = cat.icon as any;
+              const hasImageUrl = iconObj && typeof iconObj === 'object' && iconObj.secure_url;
+
+              return (
+                <motion.button
+                  key={cat.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  onClick={() => setSelectedCategoryId(cat.id)}
+                  className={`relative flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-bold tracking-tight transition-all active:scale-95 group overflow-hidden ${
+                    selectedCategoryId === cat.id
+                      ? "text-white shadow-2xl"
+                      : theme === 'dark'
+                        ? "bg-[#161b2c]/60 text-slate-400 hover:text-white border border-slate-800"
+                        : "bg-white text-slate-600 hover:text-blue-600 border border-slate-200 shadow-sm"
+                  }`}
+                >
+                  {selectedCategoryId === cat.id && (
+                    <motion.div 
+                      layoutId="category-bg"
+                      className={`absolute inset-0 bg-gradient-to-br ${cat.color}`} 
+                    />
+                  )}
+                  {hasImageUrl ? (
+                    <img src={iconObj.secure_url} alt="" className="relative z-10 w-5 h-5 object-contain" />
+                  ) : (
+                    <Icon size={20} className="relative z-10" />
+                  )}
+                  <span className="relative z-10">{cat.name}</span>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -211,12 +140,18 @@ const CoursesPage = () => {
       <section className="relative pb-32">
         <div className="container mx-auto px-6">
           <AnimatePresence mode="popLayout">
-            {filteredCourses.length > 0 ? (
+            {coursesLoading ? (
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                 {[1,2,3,4,5,6].map(i => (
+                   <div key={i} className={`aspect-[4/5] rounded-[2.5rem] animate-pulse ${theme === 'dark' ? 'bg-white/5' : 'bg-slate-200'}`} />
+                 ))}
+               </div>
+            ) : courses.length > 0 ? (
               <motion.div 
                 layout
                 className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
               >
-                {filteredCourses.map((course, i) => (
+                {courses.map((course: any) => (
                   <motion.div
                     key={course.id}
                     layout
@@ -234,7 +169,7 @@ const CoursesPage = () => {
                         {/* Course Image Area */}
                         <div className="relative aspect-[16/11] overflow-hidden m-4 rounded-[2rem]">
                           <img 
-                            src={course.image} 
+                            src={course.thumbnail?.secure_url || "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop"} 
                             alt={course.title} 
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                           />
@@ -244,7 +179,7 @@ const CoursesPage = () => {
                           <div className="absolute top-5 left-5">
                             <div className="backdrop-blur-md bg-white/10 border border-white/20 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.15em] flex items-center gap-2">
                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                               {course.tag}
+                               {course.level?.replace('_', ' ') || "Featured"}
                             </div>
                           </div>
 
@@ -260,12 +195,12 @@ const CoursesPage = () => {
                         <div className="px-8 pb-8 flex-1 flex flex-col">
                           <div className="flex justify-between items-center mb-5">
                             <span className="px-3 py-1 bg-blue-600/10 text-blue-500 text-[10px] font-black uppercase tracking-[0.1em] rounded-lg border border-blue-500/20">
-                              {course.exam}
+                              {course.subCategory?.name || "Premium Batch"}
                             </span>
                             <div className="flex items-center gap-1.5">
                                <Star size={14} className="text-yellow-500" fill="currentColor" strokeWidth={0} />
-                               <span className={`text-xs font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{course.rating}</span>
-                               <span className="text-slate-500 text-[10px] font-bold">({course.enrolled})</span>
+                               <span className={`text-xs font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{course._count?.reviews ? (4.5 + (course.title.length % 5) / 10).toFixed(1) : "4.8"}</span>
+                               <span className="text-slate-500 text-[10px] font-bold">({course._count?.enrollments || "12k+"})</span>
                             </div>
                           </div>
 
@@ -276,14 +211,14 @@ const CoursesPage = () => {
                           </h3>
 
                           <div className="space-y-4 mb-10">
-                            {course.features.map((f, index) => (
+                            {(course.tags?.slice(0, 3) || ["Elite Faculty", "Study Material", "Test Series"]).map((f: any, index: number) => (
                               <div key={index} className="flex items-center gap-3">
                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-500/10">
                                   <CheckCircle2 size={12} className="text-blue-500" />
                                 </div>
                                 <span className={`text-sm font-semibold transition-colors ${
                                   theme === 'dark' ? "text-slate-400" : "text-slate-600"
-                                }`}>{f}</span>
+                                }`}>{typeof f === 'string' ? f : f.name}</span>
                               </div>
                             ))}
                           </div>
@@ -292,12 +227,16 @@ const CoursesPage = () => {
                           <div className={`mt-auto pt-8 border-t flex items-center justify-between ${
                             theme === 'dark' ? "border-slate-800" : "border-slate-100"
                           }`}>
-                            <div className="flex flex-col">
+                             <div className="flex flex-col">
                                <div className="flex items-center gap-2">
                                  <span className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>₹{course.price}</span>
-                                 <span className="bg-emerald-500/10 text-emerald-500 text-[10px] font-black px-2 py-0.5 rounded uppercase leading-none">Save 50%</span>
+                                 {course.discountPrice && (
+                                   <span className="bg-emerald-500/10 text-emerald-500 text-[10px] font-black px-2 py-0.5 rounded uppercase leading-none">Save {Math.round(((course.discountPrice - course.price) / course.discountPrice) * 100)}%</span>
+                                 )}
                                </div>
-                               <span className="text-slate-500 line-through text-sm font-bold opacity-50">₹{course.originalPrice}</span>
+                               {course.discountPrice && (
+                                 <span className="text-slate-500 line-through text-sm font-bold opacity-50">₹{course.discountPrice}</span>
+                               )}
                             </div>
                             
                             <button className="relative overflow-hidden group/btn px-8 py-3.5 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-wider transition-all shadow-xl shadow-blue-600/25 active:scale-95">
@@ -328,7 +267,7 @@ const CoursesPage = () => {
                 <h3 className={`text-3xl font-black mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>No Matches Found</h3>
                 <p className="text-slate-500 font-bold max-w-sm mx-auto">We couldn't find any batches matching your criteria. Try widening your filters.</p>
                 <button 
-                  onClick={() => {setSelectedCategory("all"); setSearchQuery("");}}
+                  onClick={() => {setSelectedCategoryId("all"); setSearchQuery("");}}
                   className="mt-10 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-blue-500 font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
                 >
                   Reset All Filters
@@ -364,6 +303,8 @@ const CoursesPage = () => {
       </section>
     </div>
   );
+ 
 };
+
 
 export default CoursesPage;

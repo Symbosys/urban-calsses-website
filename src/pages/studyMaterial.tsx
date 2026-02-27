@@ -119,12 +119,12 @@ const StudyMaterial = () => {
   }, [activeCat, searchQuery]);
 
   return (
-    <div className={`min-h-screen flex transition-all duration-700 pt-24 ${
+    <div className={`min-h-screen flex transition-all duration-700 pt-36 ${
       theme === 'dark' ? "bg-[#05070a]" : "bg-slate-50"
     }`}>
       
       {/* 🏛 ELITE DASHBOARD SIDEBAR */}
-      <aside className={`w-80 h-[calc(100vh-6rem)] sticky top-24 flex-shrink-0 border-r flex flex-col px-6 pb-10 transition-all duration-500 overflow-y-auto ${
+      <aside className={`w-80 h-[calc(100vh-6rem)] sticky top-40 flex-shrink-0 border-r flex flex-col px-6 pb-10 transition-all duration-500 overflow-y-auto ${
         theme === 'dark' ? 'bg-[#0b0f1a]/50 backdrop-blur-xl border-white/5' : 'bg-white border-slate-200'
       }`}>
         <div className="py-8 space-y-2">
