@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import LiveClasses from '../components/LiveClasses';
 import WhyChooseUs from '../components/WhyChooseUs';
 import CourseCardGrid from '../components/CourseCardGrid';
-import Footer from '../components/Footer';
+
 import TestimonialSlider from '../components/TestimonialSlider';
 import TrustMarquee from '../components/TrustMarquee';
 import BatchSlider from '../components/BatchSlider';

@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowRight, Sun, Moon, Search, ChevronDown, LogOut } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown, LogOut } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useAuthStore } from "../store/authStore";
 

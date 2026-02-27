@@ -56,7 +56,7 @@ export const useUpdateCategory = () => {
       const { data } = await api.put<ApiResponse<{ category: Category }>>(`/categories/${id}`, payload);
       return data.data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       queryClient.invalidateQueries({ queryKey: ["categories", variables.id] });
       showSuccessMessage("Category updated successfully");
@@ -133,7 +133,7 @@ export const useUpdateSubCategory = () => {
       const { data } = await api.put<ApiResponse<{ subCategory: SubCategory }>>(`/sub-categories/${id}`, payload);
       return data.data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["sub-categories"] });
       queryClient.invalidateQueries({ queryKey: ["sub-categories", variables.id] });
       queryClient.invalidateQueries({ queryKey: ["categories"] });

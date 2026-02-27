@@ -57,7 +57,7 @@ export const useUpdateInstructor = () => {
       const { data } = await api.put<ApiResponse<{ instructor: Instructor }>>(`/instructors/${id}`, payload);
       return data.data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["instructors"] });
       queryClient.invalidateQueries({ queryKey: ["instructors", variables.id] });
       showSuccessMessage("Instructor updated successfully");

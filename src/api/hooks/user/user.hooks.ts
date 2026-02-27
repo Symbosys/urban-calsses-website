@@ -38,7 +38,7 @@ export const useUpdateUser = () => {
       const { data } = await api.put<ApiResponse<{ user: StudentUser }>>(`/users/${id}`, payload);
       return data.data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       queryClient.invalidateQueries({ queryKey: ["users", variables.id] });
       showSuccessMessage("Profile updated successfully");
