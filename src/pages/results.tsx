@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useResults } from "../api/hooks/result/result.hooks";
+import { useCategories } from "../api/hooks/courses/category.hooks";
 
 const stats = [
   { label: "Selections in 2024", value: "22,000+", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
@@ -13,13 +14,7 @@ const stats = [
   { label: "Our History", value: "10 Years", icon: Star, color: "text-emerald-600", bg: "bg-emerald-50" },
 ];
 
-const categories = [
-  { id: "all", name: "All Results" },
-  { id: "jee", name: "IIT-JEE" },
-  { id: "neet", name: "NEET UG" },
-  { id: "foundation", name: "Foundations" },
-  { id: "boards", name: "Boards" },
-];
+
 
 const ResultsPage = () => {
   const { theme } = useThemeStore();
@@ -27,19 +22,26 @@ const ResultsPage = () => {
   const [selectedYear, setSelectedYear] = useState("2024");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data: resultsData, isLoading } = useResults();
+  const { data: categoryData } = useCategories();
+  const { data: resultsData, isLoading } = useResults({
+    categoryId: selectedCategory === "all" ? undefined : selectedCategory
+  });
+  
   const rawToppers = resultsData?.results || [];
+
+  const categoriesList = [
+    { id: "all", name: "All Results" },
+    ...(categoryData?.categories || []).map(c => ({ id: c.id, name: c.name }))
+  ];
 
   const filteredToppers = useMemo(() => {
     return rawToppers.filter(t => {
       const matchesSearch = t.studentName.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             t.rank.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCat = selectedCategory === "all" || t.examName.toLowerCase().includes(selectedCategory.toLowerCase());
-      // Assuming year is a number in your type, let's cast or check
       const matchesYear = selectedYear === "all" || t.year.toString() === selectedYear;
-      return matchesSearch && matchesCat && matchesYear;
+      return matchesSearch && matchesYear;
     });
-  }, [rawToppers, searchQuery, selectedCategory, selectedYear]);
+  }, [rawToppers, searchQuery, selectedYear]);
 
   return (
     <div className={`pt-24 min-h-screen transition-colors duration-500 ${
@@ -103,7 +105,7 @@ const ResultsPage = () => {
         <div className="space-y-8 mb-16">
           <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
              <div className="flex flex-wrap gap-3">
-                {categories.map((cat) => (
+                {categoriesList.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.id)}
@@ -127,10 +129,10 @@ const ResultsPage = () => {
                     theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'
                   }`}
                 >
-                  <option value="2024">2024</option>
-                  <option value="2023">2023</option>
-                  <option value="2022">2022</option>
-                  <option value="all">All Years</option>
+                  <option value="2024" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2024</option>
+                  <option value="2023" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2023</option>
+                  <option value="2022" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2022</option>
+                  <option value="all" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>All Years</option>
                 </select>
              </div>
           </div>
