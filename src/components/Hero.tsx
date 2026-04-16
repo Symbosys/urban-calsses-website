@@ -1,29 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useBanners } from '../api/hooks/admin/banner.hooks';
 import { useThemeStore } from '../store/themeStore';
+import { Link } from 'react-router-dom';
 
-const banners = [
+const defaultBanners = [
   {
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+    image: { secure_url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop" },
     title: "India's Most Trusted Learning Platform",
     subtitle: "Join over 1 Crore+ Students learning with us",
-    cta: "Explore Batches",
-    color: "#2563eb"
+    link: "/courses",
   },
   {
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop",
+    image: { secure_url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" },
     title: "Victory Batch for JEE 2026",
     subtitle: "Complete syllabus coverage with Top Educators",
-    cta: "Enroll Now",
-    color: "#7c3aed"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1501504905953-f8a979207e99?q=80&w=2070&auto=format&fit=crop",
-    title: "Free Scholarship Test - 2026",
-    subtitle: "Win up to 100% Scholarship on all courses",
-    cta: "Register Free",
-    color: "#db2777"
+    link: "/courses",
   }
 ];
 
@@ -31,18 +24,32 @@ const Hero = () => {
   const { theme } = useThemeStore();
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const { data, isLoading } = useBanners();
+  const apiBanners = data?.banners?.filter(b => b.isActive) || [];
+  const banners = apiBanners.length > 0 ? apiBanners : defaultBanners;
+
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % banners.length);
-  }, []);
+  }, [banners.length]);
 
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
-  }, []);
+  }, [banners.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
   }, [nextSlide]);
+
+  if (isLoading) {
+    return (
+      <section className={`relative w-full h-[60vh] md:h-[80vh] lg:h-[85vh] flex items-center justify-center ${theme === 'dark' ? 'bg-[#05080e]' : 'bg-slate-50'}`}>
+        <div className="animate-pulse w-32 h-32 rounded-full bg-blue-500/20" />
+      </section>
+    );
+  }
+
+  const currentBanner = banners[currentSlide] || banners[0];
 
   return (
     <section className={`relative w-full h-[60vh] md:h-[80vh] lg:h-[85vh] overflow-hidden transition-colors duration-500 ${
@@ -62,9 +69,9 @@ const Hero = () => {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
               <img 
-                src={banners[currentSlide].image} 
+                src={currentBanner.image?.secure_url} 
                 className="w-full h-full object-cover"
-                alt={banners[currentSlide].title}
+                alt={currentBanner.title}
               />
               {/* Complex Gradient Overlay for Depth */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
@@ -88,11 +95,21 @@ const Hero = () => {
                   Featured Program
                 </motion.span>
                 <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-6 leading-[1.1] tracking-tighter">
-                  {banners[currentSlide].title}
+                  {currentBanner.title}
                 </h2>
-                <p className="text-lg md:text-2xl text-white/70 font-medium mb-10 max-w-2xl leading-relaxed">
-                  {banners[currentSlide].subtitle}
-                </p>
+                {currentBanner.subtitle && (
+                  <p className="text-lg md:text-2xl text-white/70 font-medium mb-10 max-w-2xl leading-relaxed">
+                    {currentBanner.subtitle}
+                  </p>
+                )}
+                {currentBanner.link && (
+                  <Link 
+                    to={currentBanner.link} 
+                    className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-colors uppercase tracking-wider text-sm shadow-lg shadow-blue-600/30"
+                  >
+                    Learn More
+                  </Link>
+                )}
               </motion.div>
             </div>
           </motion.div>

@@ -42,10 +42,10 @@ const Footer = () => {
               goals.
             </p>
             <div className="flex gap-4">
-              {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+              {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href="https://www.facebook.com/urbannclasses/?_rdr"
                   className={`w-9 h-9 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all border ${
                     theme === "dark"
                       ? "bg-slate-800 border-slate-700"
@@ -133,7 +133,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="http://localhost:5173/admin/login"
+                  href="http://localhost:3000/admin/login"
                   className="hover:text-blue-500 transition-colors"
                 >
                   Admin Login
