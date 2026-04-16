@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import LiveClasses from '../components/LiveClasses';
 import WhyChooseUs from '../components/WhyChooseUs';
@@ -37,12 +37,14 @@ const Home = () => {
                  <h2 className={`text-4xl font-black tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Trending Batches</h2>
                  <p className="text-slate-500 font-bold mt-2 uppercase text-[10px] tracking-widest">Pick the best batch to accelerate your learning journey</p>
               </div>
-              <motion.button 
-                whileHover={{ x: 5 }}
-                className="text-blue-500 font-black flex items-center gap-2 text-xs uppercase tracking-widest"
-              >
-                 View All <ArrowRight size={16} />
-              </motion.button>
+              <Link to="/courses">
+                <motion.button 
+                  whileHover={{ x: 5 }}
+                  className="text-blue-500 font-black flex items-center gap-2 text-xs uppercase tracking-widest"
+                >
+                   View All <ArrowRight size={16} />
+                </motion.button>
+              </Link>
            </div>
         </div>
         <BatchSlider />

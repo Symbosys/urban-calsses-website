@@ -93,17 +93,6 @@ const Hero = () => {
                 <p className="text-lg md:text-2xl text-white/70 font-medium mb-10 max-w-2xl leading-relaxed">
                   {banners[currentSlide].subtitle}
                 </p>
-                <div className="flex flex-wrap gap-6">
-                  <button 
-                    style={{ backgroundColor: banners[currentSlide].color }}
-                    className="px-10 md:px-14 py-4 md:py-5 text-white text-sm md:text-base font-black uppercase tracking-widest rounded-2xl transition-all transform hover:scale-105 active:scale-95 shadow-2xl shadow-black/20"
-                  >
-                    {banners[currentSlide].cta}
-                  </button>
-                  <button className="px-10 md:px-14 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-black uppercase tracking-widest rounded-2xl hover:bg-white/20 transition-all">
-                    View Schedule
-                  </button>
-                </div>
               </motion.div>
             </div>
           </motion.div>

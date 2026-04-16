@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import CoursesPage from "./pages/courses";
 // import BatchesPage from "./pages/batch";
 import CourseDetail from "./pages/course/course";
+import CourseContent from "./pages/course/course-content";
 import Classroom from "./pages/classroom";
 import BlogPage from "./pages/blogs";
 import BlogDetail from "./pages/blog-detail";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/courses" element={<CoursesPage />} />
         {/* <Route path="/batches" element={<BatchesPage />} /> */}
         <Route path="/course/:id" element={<CourseDetail />} />  
+        <Route path="/course/:id/learn" element={<CourseContent />} />  
         <Route path="/course" element={<CourseDetail />} />
         <Route path="/live-class" element={<Classroom />} />
         <Route path="/blogs" element={<BlogPage />} />

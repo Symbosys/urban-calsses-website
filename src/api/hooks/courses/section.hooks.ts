@@ -19,7 +19,7 @@ export const useSections = (params: SectionFilters = {}) => {
         { params }
       );
       return data.data;
-    },
+    },       
   });
 };
 
