@@ -8,6 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
+import logo from "../assets/Urban Classes Logo - 1 (1).png";
 
 const Footer = () => {
   const { theme } = useThemeStore();
@@ -25,8 +26,8 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-md">
-                UC
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-md overflow-hidden">
+                <img src={logo} alt="UC Logo" className="w-full h-full object-contain" />
               </div>
               <span
                 className={`text-xl font-bold tracking-tight transition-colors ${
