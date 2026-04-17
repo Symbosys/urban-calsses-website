@@ -113,12 +113,16 @@ const Home = () => {
                Register now for a FREE diagnostic assessment and unlock your potential with India's most results-driven mentors.
             </p>
             <div className="flex flex-col sm:flex-row gap-8 justify-center relative z-10">
-              <button className="px-12 py-6 bg-white text-blue-600 font-black text-sm uppercase tracking-widest rounded-3xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95">
-                Apply for Admission
-              </button>
-              <button className="px-12 py-6 bg-blue-700 text-white font-black text-sm uppercase tracking-widest rounded-3xl hover:bg-blue-800 transition-all border border-blue-500/50 active:scale-95 flex items-center justify-center gap-3 shadow-xl">
-                 Consult Expert <ArrowRight size={20} />
-              </button>
+              <Link to="/courses">
+                <button className="px-12 py-6 bg-white text-blue-600 font-black text-sm uppercase tracking-widest rounded-3xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Apply for Admission
+                </button>
+              </Link>
+              <Link to="/offline">
+                <button className="px-12 py-6 bg-blue-700 text-white font-black text-sm uppercase tracking-widest rounded-3xl hover:bg-blue-800 transition-all border border-blue-500/50 active:scale-95 flex items-center justify-center gap-3 shadow-xl">
+                   Consult Expert <ArrowRight size={20} />
+                </button>
+              </Link>
             </div>
           </motion.div>
         </div>
