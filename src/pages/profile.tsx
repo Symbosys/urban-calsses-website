@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { useThemeStore } from "../store/themeStore";
+import { useStudentDashboard } from "../api/hooks/user/dashboard.hooks";
 import {
   User,
   Mail,
@@ -15,6 +16,7 @@ import {
   ChevronRight,
   CheckCircle,
   Clock,
+  Loader2,
 } from "lucide-react";
 import { Navigate } from "react-router-dom";
 
@@ -22,6 +24,8 @@ export default function ProfileDashboard() {
   const { user, isAuthenticated, logout } = useAuthStore();
   const { theme } = useThemeStore();
   const [activeTab, setActiveTab] = useState("overview");
+
+  const { data: dashboardData, isLoading } = useStudentDashboard();
 
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
@@ -37,6 +41,14 @@ export default function ProfileDashboard() {
     { id: "achievements", label: "Certifications", icon: Award },
     { id: "settings", label: "Account Settings", icon: Settings },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen pt-28 pb-16 flex items-center justify-center">
+        <Loader2 className="animate-spin text-blue-500 w-12 h-12" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -187,7 +199,7 @@ export default function ProfileDashboard() {
                       >
                         Enrolled Courses
                       </p>
-                      <p className="text-2xl font-bold mt-1">2</p>
+                      <p className="text-2xl font-bold mt-1">{dashboardData?.enrolledCoursesCount || 0}</p>
                     </div>
                   </div>
                   {/* Card 2 */}
@@ -205,7 +217,7 @@ export default function ProfileDashboard() {
                       >
                         Learning Hours
                       </p>
-                      <p className="text-2xl font-bold mt-1">124</p>
+                      <p className="text-2xl font-bold mt-1">{dashboardData?.learningHours || 0}</p>
                     </div>
                   </div>
                   {/* Card 3 */}
@@ -223,7 +235,7 @@ export default function ProfileDashboard() {
                       >
                         Certificates
                       </p>
-                      <p className="text-2xl font-bold mt-1">0</p>
+                      <p className="text-2xl font-bold mt-1">{dashboardData?.certificatesCount || 0}</p>
                     </div>
                   </div>
                 </div>
@@ -291,101 +303,159 @@ export default function ProfileDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Course Card 1 */}
-                  <div
-                    className={`flex flex-col rounded-2xl border ${theme === "dark" ? "bg-[#1e293b] border-slate-800" : "bg-white border-slate-200"} shadow-sm overflow-hidden hover:shadow-md transition-shadow`}
-                  >
-                    <div className="h-32 bg-gradient-to-r from-blue-600 to-blue-800 relative p-6 flex flex-col justify-end">
-                      <h3 className="text-lg font-bold text-white leading-tight mb-1">
-                        Premium UI/UX Design
-                      </h3>
-                      <p className="text-blue-100 text-sm">
-                        Design & Prototyping
-                      </p>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span
-                          className={`${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
-                        >
-                          Overall Progress
-                        </span>
-                        <span className="font-semibold text-blue-600 dark:text-blue-400">
-                          45%
-                        </span>
-                      </div>
-                      <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mb-6">
-                        <div
-                          className="bg-blue-600 h-full rounded-full"
-                          style={{ width: "45%" }}
-                        ></div>
-                      </div>
+                  {dashboardData?.courses?.length === 0 && (
+                     <div className="col-span-full py-12 text-center text-slate-500">
+                       You have not enrolled in any courses yet.
+                     </div>
+                  )}
+                  {dashboardData?.courses.map((course: any, idx: number) => {
+                    const gradientClass = idx % 2 === 0 
+                      ? "from-blue-600 to-blue-800" 
+                      : "from-indigo-700 to-purple-800";
+                    const progressColor = idx % 2 === 0 ? "bg-blue-600" : "bg-indigo-600";
+                    const progressTextColor = idx % 2 === 0 ? "text-blue-600 dark:text-blue-400" : "text-indigo-600 dark:text-indigo-400";
+                    
+                    return (
+                      <div
+                        key={course.id}
+                        className={`flex flex-col rounded-2xl border ${theme === "dark" ? "bg-[#1e293b] border-slate-800" : "bg-white border-slate-200"} shadow-sm overflow-hidden hover:shadow-md transition-shadow`}
+                      >
+                        <div className={`h-32 bg-gradient-to-r ${gradientClass} relative p-6 flex flex-col justify-end`}>
+                          <h3 className="text-lg font-bold text-white leading-tight mb-1 truncate">
+                            {course.title}
+                          </h3>
+                          <p className="text-white/80 text-sm">
+                            {course.level || "Beginner"}
+                          </p>
+                        </div>
+                        <div className="p-6 flex-1 flex flex-col">
+                          <div className="flex justify-between text-sm mb-2">
+                            <span
+                              className={`${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+                            >
+                              Overall Progress
+                            </span>
+                            <span className={`font-semibold ${progressTextColor}`}>
+                              {course.progress}%
+                            </span>
+                          </div>
+                          <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mb-6 relative overflow-hidden">
+                            <div
+                              className={`${progressColor} h-full rounded-full transition-all duration-1000`}
+                              style={{ width: `${course.progress}%` }}
+                            ></div>
+                          </div>
 
-                      <button className="mt-auto w-full py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e293b] text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        Continue Learning
-                      </button>
+                          <button className="mt-auto w-full py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e293b] text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                            Continue Learning
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {activeTab === "achievements" && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold">Certifications & Badges</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Achievement Card 1 */}
+                  <div className={`flex items-start gap-4 p-6 rounded-2xl border ${theme === 'dark' ? 'bg-[#1e293b] border-slate-800' : 'bg-white border-slate-200'} shadow-sm`}>
+                    <div className="flex-shrink-0 w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center border-4 border-amber-200 dark:border-amber-500/30">
+                      <Award size={28} className="text-amber-500" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold">Frontend Developer</h3>
+                      <p className={`text-sm mt-1 mb-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Completed HTML, CSS, and basic JS.</p>
+                      <span className={`inline-block px-2.5 py-1 rounded text-xs font-medium ${theme === 'dark' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
+                        Earned Oct 12, 2025
+                      </span>
                     </div>
                   </div>
 
-                  {/* Course Card 2 */}
-                  <div
-                    className={`flex flex-col rounded-2xl border ${theme === "dark" ? "bg-[#1e293b] border-slate-800" : "bg-white border-slate-200"} shadow-sm overflow-hidden hover:shadow-md transition-shadow`}
-                  >
-                    <div className="h-32 bg-gradient-to-r from-indigo-700 to-purple-800 relative p-6 flex flex-col justify-end">
-                      <h3 className="text-lg font-bold text-white leading-tight mb-1">
-                        Advanced Full-Stack
-                      </h3>
-                      <p className="text-indigo-100 text-sm">Web Development</p>
+                  {/* Achievement Card 2 */}
+                  <div className={`flex items-start gap-4 p-6 rounded-2xl border ${theme === 'dark' ? 'bg-[#1e293b] border-slate-800' : 'bg-white border-slate-200'} shadow-sm opacity-60 grayscale`}>
+                    <div className="flex-shrink-0 w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-4 border-slate-200 dark:border-slate-700">
+                      <Award size={28} className="text-slate-400" />
                     </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span
-                          className={`${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
-                        >
-                          Overall Progress
-                        </span>
-                        <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                          12%
-                        </span>
-                      </div>
-                      <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mb-6">
-                        <div
-                          className="bg-indigo-600 h-full rounded-full"
-                          style={{ width: "12%" }}
-                        ></div>
-                      </div>
-
-                      <button className="mt-auto w-full py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e293b] text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        Continue Learning
-                      </button>
+                    <div>
+                      <h3 className="text-base font-bold">Full-Stack Master</h3>
+                      <p className={`text-sm mt-1 mb-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Requires active enrollment completion.</p>
+                      <span className={`inline-block px-2.5 py-1 rounded text-xs font-medium ${theme === 'dark' ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
+                        Locked
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
             )}
 
-            {(activeTab === "achievements" || activeTab === "settings") && (
-              <div
-                className={`animate-in fade-in slide-in-from-right-4 duration-500 rounded-2xl border ${theme === "dark" ? "bg-[#1e293b] border-slate-800" : "bg-white border-slate-200"} shadow-sm p-12 text-center flex flex-col items-center min-h-[400px] justify-center`}
-              >
-                <div
-                  className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${theme === "dark" ? "bg-slate-800 text-slate-500" : "bg-slate-50 text-slate-400"}`}
-                >
-                  {activeTab === "achievements" ? (
-                    <Award size={32} />
-                  ) : (
-                    <Settings size={32} />
-                  )}
+            {activeTab === "settings" && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold">Account Settings</h2>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Section in Development
-                </h3>
-                <p
-                  className={`text-sm max-w-md mx-auto ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
-                >
-                  We're currently building out this feature to give you the best
-                  experience. It will be available in an upcoming update.
-                </p>
+
+                <div className={`rounded-2xl border ${theme === 'dark' ? 'bg-[#1e293b] border-slate-800' : 'bg-white border-slate-200'} shadow-sm overflow-hidden`}>
+                  <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800">
+                    <h3 className="text-base font-semibold">Profile Details</h3>
+                    <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Update your user profile information.</p>
+                  </div>
+                  <div className="p-6 space-y-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <label className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>Full Name</label>
+                        <input 
+                          type="text" 
+                          defaultValue={user?.name || ""}
+                          className={`w-full px-4 py-2.5 rounded-lg border text-sm ${theme === 'dark' ? 'bg-[#0f172a] border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500' : 'bg-white border-slate-300 text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500'} outline-none transition-all`}
+                        />
+                      </div>
+                      <div>
+                        <label className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>Phone Number</label>
+                        <input 
+                          type="text" 
+                          defaultValue={user?.phone || ""}
+                          className={`w-full px-4 py-2.5 rounded-lg border text-sm ${theme === 'dark' ? 'bg-[#0f172a] border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500' : 'bg-white border-slate-300 text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500'} outline-none transition-all`}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>Email Address</label>
+                      <input 
+                        type="email" 
+                        defaultValue={user?.email || ""}
+                        disabled
+                        className={`w-full px-4 py-2.5 rounded-lg border text-sm cursor-not-allowed ${theme === 'dark' ? 'bg-[#0f172a]/50 border-slate-800 text-slate-500' : 'bg-slate-50 border-slate-200 text-slate-500'} outline-none`}
+                      />
+                      <p className={`text-xs mt-1.5 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>To change your email address, please contact support.</p>
+                    </div>
+                    
+                    <div className="pt-4 flex justify-end">
+                      <button className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`rounded-2xl border ${theme === 'dark' ? 'bg-[#1e293b] border-slate-800' : 'bg-white border-slate-200'} shadow-sm overflow-hidden`}>
+                  <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <h3 className="text-base font-semibold text-rose-600 dark:text-rose-500">Danger Zone</h3>
+                      <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Permanently remove your account and data.</p>
+                    </div>
+                    <button className="px-5 py-2 whitespace-nowrap border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-500 text-sm font-medium rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 transition-colors">
+                      Deactivate
+                    </button>
+                  </div>
+                </div>
+
               </div>
             )}
           </div>
