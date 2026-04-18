@@ -420,13 +420,13 @@ const ResultsPage = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className={`relative w-full max-w-2xl overflow-hidden rounded-[2rem] shadow-2xl border ${
+              className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-[2rem] shadow-2xl border flex flex-col md:flex-row ${
                 theme === "dark"
                   ? "bg-[#111827] border-white/10"
                   : "bg-white border-slate-200"
               }`}
             >
-              <div className="absolute top-4 right-4 z-10">
+              <div className="absolute top-4 right-4 z-50">
                 <button
                   onClick={() => setSelectedStory(null)}
                   className="p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-md"
@@ -435,7 +435,8 @@ const ResultsPage = () => {
                 </button>
               </div>
 
-              <div className="relative h-48 md:h-72 overflow-hidden bg-slate-900">
+              {/* Left Side: Image */}
+              <div className="relative h-72 md:h-auto md:w-2/5 overflow-hidden bg-slate-900 shrink-0 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/10">
                 <div className="absolute inset-0">
                   <img
                     src={
@@ -452,44 +453,61 @@ const ResultsPage = () => {
                     "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"
                   }
                   alt={selectedStory.studentName}
-                  className="w-full h-full object-contain relative z-10"
+                  className="w-full h-full object-contain relative z-10 p-4"
                 />
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 z-20">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
-                      AIR {selectedStory.rank}
-                    </span>
-                    <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded backdrop-blur-sm">
-                      {selectedStory.examName} • {selectedStory.year}
-                    </span>
-                  </div>
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 z-20 md:hidden">
                   <h3 className="text-3xl font-black text-white">
                     {selectedStory.studentName}
                   </h3>
                 </div>
               </div>
 
-              <div className="p-8 md:p-10">
-                <div className="flex gap-4">
+              {/* Right Side: Information */}
+              <div className="p-8 md:p-12 md:w-3/5 flex flex-col justify-center">
+                 <div className="hidden md:block mb-8">
+                    <h3 className={`text-4xl font-black mb-4 ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
+                      {selectedStory.studentName}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <span className="px-4 py-1.5 bg-yellow-400 rounded-lg text-black font-black text-xs uppercase shadow-md">
+                        AIR {selectedStory.rank}
+                      </span>
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border ${theme === "dark" ? "bg-white/5 border-white/10 text-white" : "bg-slate-100 border-slate-200 text-slate-700"}`}>
+                        {selectedStory.examName} • {selectedStory.year}
+                      </span>
+                    </div>
+                 </div>
+
+                 {/* Mobile Badges (visible only on mobile) */}
+                 <div className="flex items-center gap-3 mb-6 md:hidden">
+                      <span className="px-4 py-1.5 bg-yellow-400 rounded-lg text-black font-black text-xs uppercase shadow-md">
+                        AIR {selectedStory.rank}
+                      </span>
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border ${theme === "dark" ? "bg-white/5 border-white/10 text-white" : "bg-slate-100 border-slate-200 text-slate-700"}`}>
+                        {selectedStory.examName} • {selectedStory.year}
+                      </span>
+                 </div>
+
+                <div className="flex gap-4 md:gap-6">
                   <Quote
                     className="text-blue-500 shrink-0 opacity-50 rotate-180"
                     size={40}
                   />
                   <div>
                     <p
-                      className={`text-lg md:text-xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}
+                      className={`text-lg md:text-2xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}
                     >
                       "{selectedStory.quote}"
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-8">
                       <p
-                        className={`font-black uppercase tracking-widest text-[10px] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+                        className={`font-black uppercase tracking-widest text-[10px] md:text-xs ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
                       >
                         Now Studying At
                       </p>
                       <p
-                        className={`font-bold mt-1 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}
+                        className={`text-lg font-bold mt-1 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}
                       >
                         {selectedStory.college || "Top Tier Institute"}
                       </p>
