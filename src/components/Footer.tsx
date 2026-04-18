@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import logo from "../assets/Urban Classes Logo - 1 (1).png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { theme } = useThemeStore();
@@ -84,9 +85,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-500 transition-colors">
+                <Link to="/blogs?category=Success Stories" className="hover:text-blue-500 transition-colors">
                   Success Stories
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="hover:text-blue-500 transition-colors">
