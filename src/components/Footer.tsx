@@ -138,8 +138,14 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://urban-calsses-admin.vercel.app/"
-                  className="hover:text-blue-500 transition-colors"
+                  href={
+                    window.location.hostname === "localhost"
+                      ? "http://localhost:3000"
+                      : "https://urban-calsses-admin.vercel.app/"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-500 transition-colors flex items-center gap-1"
                 >
                   Admin Login
                 </a>
