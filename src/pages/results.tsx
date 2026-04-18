@@ -1,20 +1,49 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Trophy, Search, Target, Users, PlayCircle, Star, X, Quote
+import {
+  Trophy,
+  Search,
+  Target,
+  Users,
+  PlayCircle,
+  Star,
+  X,
+  Quote,
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useResults } from "../api/hooks/result/result.hooks";
 import { useCategories } from "../api/hooks/courses/category.hooks";
 
 const stats = [
-  { label: "Selections in 2024", value: "22,000+", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
-  { label: "Top 100 AIR", value: "180+", icon: Trophy, color: "text-amber-600", bg: "bg-amber-50" },
-  { label: "State Toppers", value: "65+", icon: Target, color: "text-rose-600", bg: "bg-rose-50" },
-  { label: "Our History", value: "10 Years", icon: Star, color: "text-emerald-600", bg: "bg-emerald-50" },
+  {
+    label: "Selections in 2024",
+    value: "22,000+",
+    icon: Users,
+    color: "text-blue-600",
+    bg: "bg-blue-50",
+  },
+  {
+    label: "Top 100 AIR",
+    value: "180+",
+    icon: Trophy,
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+  },
+  {
+    label: "State Toppers",
+    value: "65+",
+    icon: Target,
+    color: "text-rose-600",
+    bg: "bg-rose-50",
+  },
+  {
+    label: "Our History",
+    value: "10 Years",
+    icon: Star,
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
+  },
 ];
-
-
 
 const ResultsPage = () => {
   const { theme } = useThemeStore();
@@ -25,31 +54,40 @@ const ResultsPage = () => {
 
   const { data: categoryData } = useCategories();
   const { data: resultsData, isLoading } = useResults({
-    categoryId: selectedCategory === "all" ? undefined : selectedCategory
+    categoryId: selectedCategory === "all" ? undefined : selectedCategory,
   });
-  
+
   const rawToppers = resultsData?.results || [];
 
   const categoriesList = [
     { id: "all", name: "All Results" },
-    ...(categoryData?.categories || []).map(c => ({ id: c.id, name: c.name }))
+    ...(categoryData?.categories || []).map((c) => ({
+      id: c.id,
+      name: c.name,
+    })),
   ];
 
   const filteredToppers = useMemo(() => {
-    return rawToppers.filter(t => {
-      const matchesSearch = t.studentName.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            t.rank.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesYear = selectedYear === "all" || t.year.toString() === selectedYear;
+    return rawToppers.filter((t) => {
+      const matchesSearch =
+        t.studentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.rank.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesYear =
+        selectedYear === "all" || t.year.toString() === selectedYear;
       return matchesSearch && matchesYear;
     });
   }, [rawToppers, searchQuery, selectedYear]);
 
   return (
-    <div className={`pt-24 min-h-screen transition-colors duration-500 ${
-      theme === 'dark' ? "bg-[#05080e]" : "bg-white"
-    }`}>
+    <div
+      className={`pt-24 min-h-screen transition-colors duration-500 ${
+        theme === "dark" ? "bg-[#05080e]" : "bg-white"
+      }`}
+    >
       {/* Banner Section - PW Style */}
-      <section className={`py-16 md:py-24 border-b ${theme === 'dark' ? 'border-white/5 bg-[#0a0d16]' : 'border-slate-100 bg-[#f8fbff]'}`}>
+      <section
+        className={`py-15 md:py-30 border-b ${theme === "dark" ? "border-white/5 bg-[#0a0d16]" : "border-slate-100 bg-[#f8fbff]"}`}
+      >
         <div className="container mx-auto px-6">
           <div className="max-w-4xl">
             <motion.div
@@ -58,25 +96,29 @@ const ResultsPage = () => {
               className="flex items-center gap-3 mb-6"
             >
               <div className="w-12 h-1 bg-blue-600 rounded-full" />
-              <span className="text-blue-600 font-black uppercase tracking-widest text-xs">Our Results Speak</span>
+              <span className="text-blue-600 font-black uppercase tracking-widest text-xs">
+                Our Results Speak
+              </span>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
+              className={`text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-tight ${theme === "dark" ? "text-white" : "text-slate-900"}`}
             >
               Celebrating the Success of <br />
               <span className="text-blue-600">Our Future Leaders.</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className={`text-xl font-medium max-w-2xl leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}
+              className={`text-xl font-medium max-w-2xl leading-relaxed ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}
             >
-              Unwavering commitment, exceptional mentorship, and consistent hard work have led to these extraordinary achievements. We take pride in every rank.
+              Unwavering commitment, exceptional mentorship, and consistent hard
+              work have led to these extraordinary achievements. We take pride
+              in every rank.
             </motion.p>
           </div>
         </div>
@@ -84,17 +126,29 @@ const ResultsPage = () => {
 
       {/* Stats Bar */}
       <div className="container mx-auto px-6 -mt-12">
-        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl shadow-2xl border ${
-          theme === 'dark' ? 'bg-[#111827] border-white/5 shadow-black/50' : 'bg-white border-slate-100 shadow-blue-500/10'
-        }`}>
+        <div
+          className={`grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl shadow-2xl border ${
+            theme === "dark"
+              ? "bg-[#111827] border-white/5 shadow-black/50"
+              : "bg-white border-slate-100 shadow-blue-500/10"
+          }`}
+        >
           {stats.map((stat, i) => (
             <div key={i} className="flex items-center gap-6">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${stat.bg} ${stat.color}`}>
+              <div
+                className={`w-14 h-14 rounded-2xl flex items-center justify-center ${stat.bg} ${stat.color}`}
+              >
                 <stat.icon size={28} />
               </div>
               <div>
-                <h4 className={`text-2xl font-black transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{stat.value}</h4>
-                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">{stat.label}</p>
+                <h4
+                  className={`text-2xl font-black transition-colors ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                >
+                  {stat.value}
+                </h4>
+                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">
+                  {stat.label}
+                </p>
               </div>
             </div>
           ))}
@@ -105,52 +159,81 @@ const ResultsPage = () => {
         {/* Navigation & Filters - PW Style */}
         <div className="space-y-8 mb-16">
           <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
-             <div className="flex flex-wrap gap-3">
-                {categoriesList.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`px-8 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                      selectedCategory === cat.id
-                        ? "bg-slate-900 text-white shadow-xl"
-                        : theme === 'dark' ? "bg-white/5 text-slate-400 hover:bg-white/10" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-             </div>
-
-             <div className="flex items-center gap-4">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Year:</span>
-                <select 
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
-                  className={`px-6 py-3 rounded-xl border outline-none font-bold text-xs ${
-                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'
+            <div className="flex flex-wrap gap-3">
+              {categoriesList.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-8 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                    selectedCategory === cat.id
+                      ? "bg-slate-900 text-white shadow-xl"
+                      : theme === "dark"
+                        ? "bg-white/5 text-slate-400 hover:bg-white/10"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
-                  <option value="2024" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2024</option>
-                  <option value="2023" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2023</option>
-                  <option value="2022" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>2022</option>
-                  <option value="all" className={theme === 'dark' ? 'bg-slate-900 text-white' : ''}>All Years</option>
-                </select>
-             </div>
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                Year:
+              </span>
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className={`px-6 py-3 rounded-xl border outline-none font-bold text-xs ${
+                  theme === "dark"
+                    ? "bg-white/5 border-white/10 text-white"
+                    : "bg-white border-slate-200 text-slate-900"
+                }`}
+              >
+                <option
+                  value="2024"
+                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
+                >
+                  2024
+                </option>
+                <option
+                  value="2023"
+                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
+                >
+                  2023
+                </option>
+                <option
+                  value="2022"
+                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
+                >
+                  2022
+                </option>
+                <option
+                  value="all"
+                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
+                >
+                  All Years
+                </option>
+              </select>
+            </div>
           </div>
 
           <div className="relative group max-w-2xl">
-              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
-              <input 
-                type="text" 
-                placeholder="Search by student name or rank..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full py-5 pl-16 pr-8 rounded-2xl border outline-none font-bold transition-all ${
-                  theme === 'dark' 
-                    ? "bg-white/5 border-white/10 text-white focus:border-blue-500/50" 
-                    : "bg-white border-slate-200 text-slate-900 focus:border-blue-500"
-                }`}
-              />
+            <Search
+              className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500"
+              size={20}
+            />
+            <input
+              type="text"
+              placeholder="Search by student name or rank..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`w-full py-5 pl-16 pr-8 rounded-2xl border outline-none font-bold transition-all ${
+                theme === "dark"
+                  ? "bg-white/5 border-white/10 text-white focus:border-blue-500/50"
+                  : "bg-white border-slate-200 text-slate-900 focus:border-blue-500"
+              }`}
+            />
           </div>
         </div>
 
@@ -158,8 +241,10 @@ const ResultsPage = () => {
         <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
           {isLoading ? (
             <div className="col-span-full py-40 flex flex-col items-center justify-center gap-4">
-               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-               <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest">Loading Champions...</p>
+              <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+              <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest">
+                Loading Champions...
+              </p>
             </div>
           ) : (
             <AnimatePresence mode="popLayout">
@@ -171,47 +256,54 @@ const ResultsPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                   className={`group relative flex flex-col items-center p-6 rounded-[2rem] border transition-all duration-500 box-border ${
-                    theme === 'dark' 
-                      ? "bg-[#111827] border-white/5 hover:border-blue-500/40" 
+                    theme === "dark"
+                      ? "bg-[#111827] border-white/5 hover:border-blue-500/40"
                       : "bg-white border-slate-100 shadow-xl shadow-slate-500/5 hover:shadow-blue-500/10"
                   }`}
                 >
                   {/* AIR / Rank Badge - Very PW Style */}
                   <div className="absolute top-4 right-4 z-10">
                     <div className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
-                       AIR {topper.rank}
+                      AIR {topper.rank}
                     </div>
                   </div>
 
                   <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-slate-100 relative">
-                    <img 
-                      src={topper.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
+                    <img
+                      src={
+                        topper.image?.secure_url ||
+                        "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"
+                      }
                       alt={topper.studentName}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />
                     {/* Year overlay */}
                     <div className="absolute bottom-3 left-3 px-2 py-0.5 bg-black/50 backdrop-blur-md rounded text-white text-[8px] font-bold">
-                       {topper.examName} • {topper.year}
+                      {topper.examName} • {topper.year}
                     </div>
                   </div>
 
                   <div className="text-center w-full">
-                    <h5 className={`text-lg font-black truncate mb-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                    <h5
+                      className={`text-lg font-black truncate mb-1 ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                    >
                       {topper.studentName}
                     </h5>
                     <p className="text-blue-500 font-bold text-[10px] uppercase tracking-widest mb-4">
-                      Score: {topper.college?.substring(0, 15) || "99.9 Percentile"}
+                      Score:{" "}
+                      {topper.college?.substring(0, 15) || "99.9 Percentile"}
                     </p>
-                    
+
                     {topper.quote && (
-                      <button 
+                      <button
                         onClick={() => setSelectedStory(topper)}
                         className={`w-full py-3 rounded-xl border font-black text-[10px] uppercase tracking-widest transition-all ${
-                        theme === 'dark' 
-                          ? 'border-white/10 text-white hover:bg-white hover:text-black' 
-                          : 'border-slate-200 text-slate-900 hover:bg-slate-900 hover:text-white'
-                      }`}>
+                          theme === "dark"
+                            ? "border-white/10 text-white hover:bg-white hover:text-black"
+                            : "border-slate-200 text-slate-900 hover:bg-slate-900 hover:text-white"
+                        }`}
+                      >
                         Success Story
                       </button>
                     )}
@@ -224,66 +316,92 @@ const ResultsPage = () => {
 
         {/* Video Stories Section */}
         <section className="mt-40">
-           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-              <div>
-                 <h2 className={`text-4xl font-black tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Topper Interviews</h2>
-                 <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest mt-2">Learn the secrets to their extraordinary success</p>
-              </div>
-              <button className="flex items-center gap-3 text-blue-600 font-black uppercase text-xs tracking-widest">
-                 Watch More <PlayCircle size={18} />
-              </button>
-           </div>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+              <h2
+                className={`text-4xl font-black tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+              >
+                Topper Interviews
+              </h2>
+              <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest mt-2">
+                Learn the secrets to their extraordinary success
+              </p>
+            </div>
+            <button className="flex items-center gap-3 text-blue-600 font-black uppercase text-xs tracking-widest">
+              Watch More <PlayCircle size={18} />
+            </button>
+          </div>
 
-           <div className="grid md:grid-cols-3 gap-10">
-              {[1, 2, 3].map(i => (
-                <div key={i} className={`group relative aspect-video rounded-3xl overflow-hidden border ${
-                  theme === 'dark' ? 'border-white/5' : 'border-slate-100 shadow-2xl shadow-blue-500/5'
-                }`}>
-                  <img 
-                    src={`https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop`} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    alt="Interview"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all shadow-2xl shadow-blue-600/50">
-                       <PlayCircle size={32} fill="currentColor" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <p className="text-white font-black text-lg leading-tight uppercase">Journey to AIR {i * 10}</p>
-                    <p className="text-white/60 text-[10px] font-bold mt-1">Interview with Akash Verma</p>
+          <div className="grid md:grid-cols-3 gap-10">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className={`group relative aspect-video rounded-3xl overflow-hidden border ${
+                  theme === "dark"
+                    ? "border-white/5"
+                    : "border-slate-100 shadow-2xl shadow-blue-500/5"
+                }`}
+              >
+                <img
+                  src={`https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop`}
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  alt="Interview"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all shadow-2xl shadow-blue-600/50">
+                    <PlayCircle size={32} fill="currentColor" />
                   </div>
                 </div>
-              ))}
-           </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white font-black text-lg leading-tight uppercase">
+                    Journey to AIR {i * 10}
+                  </p>
+                  <p className="text-white/60 text-[10px] font-bold mt-1">
+                    Interview with Akash Verma
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Registration CTA */}
         <section className="mt-40 mb-20 text-center">
-           <div className={`p-16 md:p-24 rounded-[4rem] border relative overflow-hidden ${
-             theme === 'dark' ? 'bg-[#111827] border-white/5' : 'bg-[#f0f7ff] border-blue-50'
-           }`}>
-              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 blur-[100px] rounded-full" />
-              <div className="relative z-10">
-                 <h3 className={`text-4xl md:text-6xl font-black mb-10 tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                    Ready to see your name <br /> on this list?
-                 </h3>
-                 <p className="text-slate-500 font-medium text-lg mb-12 max-w-xl mx-auto">
-                    Start your journey with Urban Classes today and get the elite mentorship you need to crack your dream exam.
-                 </p>
-                 <div className="flex flex-col sm:flex-row justify-center gap-6">
-                    <button className="px-12 py-5 bg-blue-600 text-white font-black rounded-2xl uppercase text-xs tracking-widest shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all">
-                       Enroll in Victory Batch
-                    </button>
-                    <button className={`px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest border transition-all ${
-                      theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-xl shadow-blue-500/5'
-                    }`}>
-                       Free Career Counseling
-                    </button>
-                 </div>
+          <div
+            className={`p-16 md:p-24 rounded-[4rem] border relative overflow-hidden ${
+              theme === "dark"
+                ? "bg-[#111827] border-white/5"
+                : "bg-[#f0f7ff] border-blue-50"
+            }`}
+          >
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 blur-[100px] rounded-full" />
+            <div className="relative z-10">
+              <h3
+                className={`text-4xl md:text-6xl font-black mb-10 tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+              >
+                Ready to see your name <br /> on this list?
+              </h3>
+              <p className="text-slate-500 font-medium text-lg mb-12 max-w-xl mx-auto">
+                Start your journey with Urban Classes today and get the elite
+                mentorship you need to crack your dream exam.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-6">
+                <button className="px-12 py-5 bg-blue-600 text-white font-black rounded-2xl uppercase text-xs tracking-widest shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all">
+                  Enroll in Victory Batch
+                </button>
+                <button
+                  className={`px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest border transition-all ${
+                    theme === "dark"
+                      ? "bg-white/5 border-white/10 text-white"
+                      : "bg-white border-slate-200 text-slate-900 shadow-xl shadow-blue-500/5"
+                  }`}
+                >
+                  Free Career Counseling
+                </button>
               </div>
-           </div>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -303,59 +421,76 @@ const ResultsPage = () => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               className={`relative w-full max-w-2xl overflow-hidden rounded-[2rem] shadow-2xl border ${
-                theme === "dark" 
-                  ? "bg-[#111827] border-white/10" 
+                theme === "dark"
+                  ? "bg-[#111827] border-white/10"
                   : "bg-white border-slate-200"
               }`}
             >
               <div className="absolute top-4 right-4 z-10">
-                <button 
+                <button
                   onClick={() => setSelectedStory(null)}
                   className="p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-md"
                 >
                   <X size={20} />
                 </button>
               </div>
-              
+
               <div className="relative h-48 md:h-72 overflow-hidden bg-slate-900">
                 <div className="absolute inset-0">
-                  <img 
-                    src={selectedStory.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
+                  <img
+                    src={
+                      selectedStory.image?.secure_url ||
+                      "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"
+                    }
                     alt=""
                     className="w-full h-full object-cover blur-2xl opacity-40 scale-125"
                   />
                 </div>
-                <img 
-                  src={selectedStory.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
+                <img
+                  src={
+                    selectedStory.image?.secure_url ||
+                    "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"
+                  }
                   alt={selectedStory.studentName}
                   className="w-full h-full object-contain relative z-10"
                 />
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 z-20">
                   <div className="flex items-center gap-3 mb-2">
-                     <span className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
-                       AIR {selectedStory.rank}
-                     </span>
-                     <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded backdrop-blur-sm">
-                       {selectedStory.examName} • {selectedStory.year}
-                     </span>
+                    <span className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
+                      AIR {selectedStory.rank}
+                    </span>
+                    <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded backdrop-blur-sm">
+                      {selectedStory.examName} • {selectedStory.year}
+                    </span>
                   </div>
-                  <h3 className="text-3xl font-black text-white">{selectedStory.studentName}</h3>
+                  <h3 className="text-3xl font-black text-white">
+                    {selectedStory.studentName}
+                  </h3>
                 </div>
               </div>
-              
+
               <div className="p-8 md:p-10">
                 <div className="flex gap-4">
-                  <Quote className="text-blue-500 shrink-0 opacity-50 rotate-180" size={40} />
+                  <Quote
+                    className="text-blue-500 shrink-0 opacity-50 rotate-180"
+                    size={40}
+                  />
                   <div>
-                    <p className={`text-lg md:text-xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}>
+                    <p
+                      className={`text-lg md:text-xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}
+                    >
                       "{selectedStory.quote}"
                     </p>
                     <div className="mt-6">
-                      <p className={`font-black uppercase tracking-widest text-[10px] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
+                      <p
+                        className={`font-black uppercase tracking-widest text-[10px] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+                      >
                         Now Studying At
                       </p>
-                      <p className={`font-bold mt-1 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}>
+                      <p
+                        className={`font-bold mt-1 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}
+                      >
                         {selectedStory.college || "Top Tier Institute"}
                       </p>
                     </div>
@@ -366,7 +501,6 @@ const ResultsPage = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 };
