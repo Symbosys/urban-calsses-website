@@ -138,7 +138,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://urban-calsses-backend.vercel.app/api/v1/admin/login"
+                  href="https://urban-calsses-admin.vercel.app/"
                   className="hover:text-blue-500 transition-colors"
                 >
                   Admin Login
