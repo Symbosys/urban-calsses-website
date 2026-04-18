@@ -420,7 +420,7 @@ const ResultsPage = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className={`relative w-full max-w-xl max-h-[95vh] min-h-[60vh] overflow-y-auto overflow-x-hidden rounded-[2rem] shadow-2xl border flex flex-col ${
+              className={`relative w-670 max-w-xl max-h-[95vh] min-h-[70vh] overflow-y-auto overflow-x-hidden rounded-[2rem] shadow-2xl border flex flex-col ${
                 theme === "dark"
                   ? "bg-[#111827] border-white/10"
                   : "bg-white border-slate-200"
