@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, ChevronDown, LogOut, User } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useAuthStore } from "../store/authStore";
 import logo from "../assets/Urban Classes Logo - 1 (1).png";
+import ProfileSidebar from "./ProfileSidebar";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [showUserSidebar, setShowUserSidebar] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useThemeStore();
   const { isAuthenticated, user, logout } = useAuthStore();
@@ -118,7 +119,7 @@ const Navbar = () => {
             {isAuthenticated ? (
               <div className="relative">
                 <button
-                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  onClick={() => setShowUserSidebar(true)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${
                     theme === "dark"
                       ? "border-white/10 hover:bg-white/5"
@@ -128,54 +129,7 @@ const Navbar = () => {
                   <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xs">
                     {user?.name?.charAt(0) || "U"}
                   </div>
-                  <ChevronDown
-                    size={14}
-                    className={
-                      theme === "dark" ? "text-white" : "text-slate-900"
-                    }
-                  />
                 </button>
-
-                {showUserDropdown && (
-                  <div
-                    className={`absolute right-0 mt-4 w-64 rounded-3xl border shadow-2xl p-4 animate-in fade-in slide-in-from-top-4 duration-300 ${
-                      theme === "dark"
-                        ? "bg-[#0f172a] border-white/10"
-                        : "bg-white border-slate-200"
-                    }`}
-                  >
-                    <div className="px-4 py-3 border-b border-white/5 mb-2">
-                      <p
-                        className={`text-xs font-black uppercase tracking-widest ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
-                      >
-                        Logged in as
-                      </p>
-                      <p
-                        className={`text-sm font-black truncate ${theme === "dark" ? "text-white" : "text-slate-900"}`}
-                      >
-                        {user?.name}
-                      </p>
-                    </div>
-                    <Link
-                      to="/profile"
-                      onClick={() => setShowUserDropdown(false)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest mb-1 ${
-                        theme === 'dark' ? 'text-slate-300 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      <User size={16} /> Profile
-                    </Link>
-                    <button
-                      onClick={() => {
-                        logout();
-                        setShowUserDropdown(false);
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-rose-500 hover:bg-rose-500/10 transition-all text-xs font-black uppercase tracking-widest"
-                    >
-                      <LogOut size={16} /> Logout
-                    </button>
-                  </div>
-                )}
               </div>
             ) : (
               <Link
@@ -262,6 +216,9 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      
+      {/* Profile Sidebar */}
+      <ProfileSidebar isOpen={showUserSidebar} onClose={() => setShowUserSidebar(false)} />
     </nav>
   );
 };
