@@ -317,14 +317,21 @@ const ResultsPage = () => {
                 </button>
               </div>
               
-              <div className="relative h-48 md:h-64 overflow-hidden">
+              <div className="relative h-48 md:h-72 overflow-hidden bg-slate-900">
+                <div className="absolute inset-0">
+                  <img 
+                    src={selectedStory.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
+                    alt=""
+                    className="w-full h-full object-cover blur-2xl opacity-40 scale-125"
+                  />
+                </div>
                 <img 
                   src={selectedStory.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
                   alt={selectedStory.studentName}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain relative z-10"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 z-20">
                   <div className="flex items-center gap-3 mb-2">
                      <span className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
                        AIR {selectedStory.rank}
