@@ -204,15 +204,17 @@ const ResultsPage = () => {
                       Score: {topper.college?.substring(0, 15) || "99.9 Percentile"}
                     </p>
                     
-                    <button 
-                      onClick={() => setSelectedStory(topper)}
-                      className={`w-full py-3 rounded-xl border font-black text-[10px] uppercase tracking-widest transition-all ${
-                      theme === 'dark' 
-                        ? 'border-white/10 text-white hover:bg-white hover:text-black' 
-                        : 'border-slate-200 text-slate-900 hover:bg-slate-900 hover:text-white'
-                    }`}>
-                      Success Story
-                    </button>
+                    {topper.quote && (
+                      <button 
+                        onClick={() => setSelectedStory(topper)}
+                        className={`w-full py-3 rounded-xl border font-black text-[10px] uppercase tracking-widest transition-all ${
+                        theme === 'dark' 
+                          ? 'border-white/10 text-white hover:bg-white hover:text-black' 
+                          : 'border-slate-200 text-slate-900 hover:bg-slate-900 hover:text-white'
+                      }`}>
+                        Success Story
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -340,7 +342,7 @@ const ResultsPage = () => {
                   <Quote className="text-blue-500 shrink-0 opacity-50 rotate-180" size={40} />
                   <div>
                     <p className={`text-lg md:text-xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}>
-                      "{selectedStory.quote || `My journey at Urban Classes was transformational. The faculty's dedication and the comprehensive study material helped me achieve my dream of securing a top rank in ${selectedStory.examName}. Hard work and consistent practice are the keys to success!`}"
+                      "{selectedStory.quote}"
                     </p>
                     <div className="mt-6">
                       <p className={`font-black uppercase tracking-widest text-[10px] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
