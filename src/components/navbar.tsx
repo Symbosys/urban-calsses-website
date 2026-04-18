@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, ChevronDown, LogOut } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown, LogOut, User } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useAuthStore } from "../store/authStore";
 import logo from "../assets/Urban Classes Logo - 1 (1).png";
@@ -156,6 +156,15 @@ const Navbar = () => {
                         {user?.name}
                       </p>
                     </div>
+                    <Link
+                      to="/profile"
+                      onClick={() => setShowUserDropdown(false)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest mb-1 ${
+                        theme === 'dark' ? 'text-slate-300 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      <User size={16} /> Profile
+                    </Link>
                     <button
                       onClick={() => {
                         logout();

@@ -16,6 +16,7 @@ import ResultsPage from "./pages/results";
 import OfflineCentersPage from "./pages/offline";
 import LoginPage from "./pages/auth/login.auth";
 import OTPPage from "./pages/auth/otp.auth";
+import ProfilePage from "./pages/profile";
 import GuestRoute from "./components/GuestRoute";
 import { useThemeStore } from "./store/themeStore";
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/offline" element={<OfflineCentersPage />} />
         <Route path="/auth/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
         <Route path="/auth/otp" element={<GuestRoute><OTPPage /></GuestRoute>} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Home />} /> 
       </Routes>
       <Footer />
