@@ -48,7 +48,7 @@ const stats = [
 const ResultsPage = () => {
   const { theme } = useThemeStore();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const [selectedYear, setSelectedYear] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStory, setSelectedStory] = useState<any | null>(null);
 
@@ -58,6 +58,13 @@ const ResultsPage = () => {
   });
 
   const rawToppers = resultsData?.results || [];
+
+  const availableYears = useMemo(() => {
+    if (!rawToppers || rawToppers.length === 0) return [];
+    // Extract unique years using Set, then sort descending
+    const years = Array.from(new Set(rawToppers.map((t: any) => t.year)));
+    return years.sort((a: any, b: any) => b - a);
+  }, [rawToppers]);
 
   const categoriesList = [
     { id: "all", name: "All Results" },
@@ -191,29 +198,20 @@ const ResultsPage = () => {
                 }`}
               >
                 <option
-                  value="2024"
-                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
-                >
-                  2024
-                </option>
-                <option
-                  value="2023"
-                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
-                >
-                  2023
-                </option>
-                <option
-                  value="2022"
-                  className={theme === "dark" ? "bg-slate-900 text-white" : ""}
-                >
-                  2022
-                </option>
-                <option
                   value="all"
                   className={theme === "dark" ? "bg-slate-900 text-white" : ""}
                 >
                   All Years
                 </option>
+                {availableYears.map((year: any) => (
+                  <option
+                    key={year}
+                    value={year.toString()}
+                    className={theme === "dark" ? "bg-slate-900 text-white" : ""}
+                  >
+                    {year}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
