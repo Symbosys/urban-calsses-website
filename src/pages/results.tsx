@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Trophy, Search, Target, Users, PlayCircle, Star
+  Trophy, Search, Target, Users, PlayCircle, Star, X, Quote
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useResults } from "../api/hooks/result/result.hooks";
@@ -21,6 +21,7 @@ const ResultsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedYear, setSelectedYear] = useState("2024");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStory, setSelectedStory] = useState<any | null>(null);
 
   const { data: categoryData } = useCategories();
   const { data: resultsData, isLoading } = useResults({
@@ -203,7 +204,9 @@ const ResultsPage = () => {
                       Score: {topper.college?.substring(0, 15) || "99.9 Percentile"}
                     </p>
                     
-                    <button className={`w-full py-3 rounded-xl border font-black text-[10px] uppercase tracking-widest transition-all ${
+                    <button 
+                      onClick={() => setSelectedStory(topper)}
+                      className={`w-full py-3 rounded-xl border font-black text-[10px] uppercase tracking-widest transition-all ${
                       theme === 'dark' 
                         ? 'border-white/10 text-white hover:bg-white hover:text-black' 
                         : 'border-slate-200 text-slate-900 hover:bg-slate-900 hover:text-white'
@@ -281,6 +284,80 @@ const ResultsPage = () => {
            </div>
         </section>
       </div>
+
+      {/* Success Story Modal */}
+      <AnimatePresence>
+        {selectedStory && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedStory(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`relative w-full max-w-2xl overflow-hidden rounded-[2rem] shadow-2xl border ${
+                theme === "dark" 
+                  ? "bg-[#111827] border-white/10" 
+                  : "bg-white border-slate-200"
+              }`}
+            >
+              <div className="absolute top-4 right-4 z-10">
+                <button 
+                  onClick={() => setSelectedStory(null)}
+                  className="p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-md"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="relative h-48 md:h-64 overflow-hidden">
+                <img 
+                  src={selectedStory.image?.secure_url || "https://images.unsplash.com/photo-1544717297-fa95b3ee215e?q=80&w=2070&auto=format&fit=crop"} 
+                  alt={selectedStory.studentName}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="flex items-center gap-3 mb-2">
+                     <span className="px-3 py-1 bg-yellow-400 rounded-lg text-black font-black text-[10px] uppercase shadow-md">
+                       AIR {selectedStory.rank}
+                     </span>
+                     <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded backdrop-blur-sm">
+                       {selectedStory.examName} • {selectedStory.year}
+                     </span>
+                  </div>
+                  <h3 className="text-3xl font-black text-white">{selectedStory.studentName}</h3>
+                </div>
+              </div>
+              
+              <div className="p-8 md:p-10">
+                <div className="flex gap-4">
+                  <Quote className="text-blue-500 shrink-0 opacity-50 rotate-180" size={40} />
+                  <div>
+                    <p className={`text-lg md:text-xl font-medium leading-relaxed italic ${theme === "dark" ? "text-slate-300" : "text-slate-700"}`}>
+                      "{selectedStory.quote || `My journey at Urban Classes was transformational. The faculty's dedication and the comprehensive study material helped me achieve my dream of securing a top rank in ${selectedStory.examName}. Hard work and consistent practice are the keys to success!`}"
+                    </p>
+                    <div className="mt-6">
+                      <p className={`font-black uppercase tracking-widest text-[10px] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
+                        Now Studying At
+                      </p>
+                      <p className={`font-bold mt-1 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}>
+                        {selectedStory.college || "Top Tier Institute"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };
