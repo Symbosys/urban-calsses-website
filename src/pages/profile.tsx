@@ -1,6 +1,6 @@
 import { useAuthStore } from "../store/authStore";
 import { useThemeStore } from "../store/themeStore";
-import { User, Mail, Phone, Calendar, ShieldCheck } from "lucide-react";
+import { User, Mail, Phone, Calendar, ShieldCheck, BookOpen } from "lucide-react";
 import { Navigate } from "react-router-dom";
 
 const ProfilePage = () => {
@@ -96,6 +96,42 @@ const ProfilePage = () => {
                     <span className={`text-xs font-bold uppercase tracking-wider flex-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Joined On</span>
                   </div>
                   <p className="text-lg font-bold">{joinDate}</p>
+                </div>
+              </div>
+
+              {/* Purchases Section */}
+              <div className="mt-8">
+                <h3 className={`text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+                  <BookOpen size={16} className="text-blue-500" /> My Purchases
+                </h3>
+                
+                <div className="space-y-4">
+                  {/* Dummy data for purchases as requested */}
+                  <div className={`p-5 rounded-2xl border transition-all hover:-translate-y-1 ${theme === 'dark' ? 'bg-[#0f172a]/50 border-white/5 hover:bg-[#0f172a]' : 'bg-slate-50 border-slate-100 hover:bg-white hover:shadow-md'}`}>
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Premium UI/UX Design Masterclass</h4>
+                        <p className={`text-sm mb-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Subject: Design & Prototyping</p>
+                      </div>
+                      <span className="text-xs font-bold px-3 py-1.5 bg-blue-500/10 text-blue-500 rounded-full">Active</span>
+                    </div>
+                    <div className="flex items-center text-xs font-bold text-emerald-500 gap-1.5 uppercase tracking-widest">
+                      <ShieldCheck size={14} /> Full Lifetime Access
+                    </div>
+                  </div>
+
+                  <div className={`p-5 rounded-2xl border transition-all hover:-translate-y-1 ${theme === 'dark' ? 'bg-[#0f172a]/50 border-white/5 hover:bg-[#0f172a]' : 'bg-slate-50 border-slate-100 hover:bg-white hover:shadow-md'}`}>
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Advanced Full-Stack Development</h4>
+                        <p className={`text-sm mb-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Subject: Web Development</p>
+                      </div>
+                      <span className="text-xs font-bold px-3 py-1.5 bg-blue-500/10 text-blue-500 rounded-full">Active</span>
+                    </div>
+                    <div className="flex items-center text-xs font-bold text-emerald-500 gap-1.5 uppercase tracking-widest">
+                      <ShieldCheck size={14} /> Full Lifetime Access
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
