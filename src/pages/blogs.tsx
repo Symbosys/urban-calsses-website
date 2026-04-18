@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useBlogs } from "../api/hooks/blogs/blog.hooks";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { Blog } from "../types/blogs/blog.types";
 
 const categories = [
@@ -18,14 +18,11 @@ const categories = [
   { id: "updates", name: "Latest Updates" },
   { id: "tips", name: "Study Tips" },
   { id: "career", name: "Career Guidance" },
-  { id: "Success Stories", name: "Success Stories" },
 ];
 
 const BlogPage = () => {
   const { theme } = useThemeStore();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get("category") || "all";
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
@@ -137,10 +134,7 @@ const BlogPage = () => {
             {categories.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => {
-                  setSelectedCategory(cat.id);
-                  setSearchParams(cat.id === "all" ? {} : { category: cat.id });
-                }}
+                onClick={() => setSelectedCategory(cat.id)}
                 className={`px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
                   selectedCategory === cat.id
                     ? "bg-blue-600 text-white shadow-xl shadow-blue-600/30"
