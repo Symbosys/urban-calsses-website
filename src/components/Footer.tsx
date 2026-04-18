@@ -27,7 +27,11 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-md overflow-hidden">
-                <img src={logo} alt="UC Logo" className="w-full h-full object-contain" />
+                <img
+                  src={logo}
+                  alt="UC Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span
                 className={`text-xl font-bold tracking-tight transition-colors ${
@@ -134,7 +138,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="http://localhost:3000/admin/login"
+                  href="https://urban-calsses-backend.vercel.app/api/v1/admin/login"
                   className="hover:text-blue-500 transition-colors"
                 >
                   Admin Login
