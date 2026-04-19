@@ -102,13 +102,13 @@ const BatchSlider = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className={`group relative p-10 rounded-[3rem] border transition-all duration-700 min-w-[320px] md:min-w-[450px] snap-center select-none ${
+              className={`group relative p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border transition-all duration-700 min-w-[280px] sm:min-w-[320px] md:min-w-[450px] snap-center select-none ${
                 theme === 'dark' 
                   ? "bg-[#161b2c]/60 border-white/5 hover:border-blue-500/30" 
                   : "bg-white border-slate-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl"
               }`}
             >
-              <div className="flex justify-between items-start mb-10">
+              <div className="flex justify-between items-start mb-6 md:mb-10">
                 <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${
                   theme === 'dark' ? "bg-white/5 text-blue-400 border border-white/10" : "bg-blue-50 text-blue-600 border border-blue-100"
                 }`}>
@@ -126,14 +126,14 @@ const BatchSlider = () => {
                 </button>
               </div>
 
-              <h4 className={`text-3xl font-black mb-4 tracking-tight transition-colors group-hover:text-blue-500 ${
+              <h4 className={`text-2xl md:text-3xl font-black mb-4 tracking-tight transition-colors group-hover:text-blue-500 ${
                 theme === 'dark' ? "text-white" : "text-slate-900"
               }`}>
                 {course.title}
               </h4>
-              <p className="text-blue-500 font-bold text-sm mb-10 uppercase tracking-widest line-clamp-2">{course.shortDescription}</p>
+              <p className="text-blue-500 font-bold text-xs md:text-sm mb-8 md:mb-10 uppercase tracking-widest line-clamp-2">{course.shortDescription}</p>
 
-              <div className="space-y-6 mb-12">
+              <div className="space-y-4 md:space-y-6 mb-8 md:mb-12">
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                     theme === 'dark' ? "bg-white/5 text-slate-400" : "bg-slate-50 text-slate-500"
@@ -158,13 +158,13 @@ const BatchSlider = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-10 border-t border-slate-800/10">
+              <div className="flex items-center justify-between pt-6 md:pt-10 border-t border-slate-800/10">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Fee Plan</p>
-                  <p className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>₹{course.price}</p>
+                  <p className={`text-2xl md:text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>₹{course.price}</p>
                 </div>
                 <Link to={`/course/${course.id}`} onMouseDown={(e) => e.stopPropagation()}>
-                  <button className={`p-5 rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-2xl transition-all hover:scale-110 active:scale-95`}>
+                  <button className={`p-4 md:p-5 rounded-xl md:rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-2xl transition-all hover:scale-110 active:scale-95`}>
                     <ChevronRight size={24} />
                   </button>
                 </Link>

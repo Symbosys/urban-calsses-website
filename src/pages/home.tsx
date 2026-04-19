@@ -30,11 +30,11 @@ const Home = () => {
       </div>
 
       {/* Trending Batches Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto px-6 mb-16">
-           <div className="flex justify-between items-end">
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 mb-12 md:mb-16">
+           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-0">
               <div>
-                 <h2 className={`text-4xl font-black tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Trending Batches</h2>
+                 <h2 className={`text-3xl md:text-4xl font-black tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Trending Batches</h2>
                  <p className="text-slate-500 font-bold mt-2 uppercase text-[10px] tracking-widest">Pick the best batch to accelerate your learning journey</p>
               </div>
               <Link to="/courses">
@@ -54,24 +54,24 @@ const Home = () => {
       <HybridLearning />
 
       {/* Course Grid Section */}
-      <section className="container mx-auto px-6 py-32 relative">
-        <div className={`absolute top-0 right-0 w-[500px] h-[500px] blur-[150px] opacity-20 pointer-events-none ${theme === 'dark' ? 'bg-blue-600/10' : 'bg-blue-300/20'}`} />
+      <section className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative">
+        <div className={`absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] blur-[100px] md:blur-[150px] opacity-20 pointer-events-none ${theme === 'dark' ? 'bg-blue-600/10' : 'bg-blue-300/20'}`} />
         
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto mb-24"
+          className="text-center max-w-4xl mx-auto mb-16 md:mb-24"
         >
-          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 ${
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 md:mb-8 ${
             theme === 'dark' ? "bg-white/5 text-slate-400 border border-white/10" : "bg-slate-100 text-slate-600 border border-slate-200"
           }`}>
              <span className="text-[10px] font-black uppercase tracking-[0.2em]">Curated Learning Streams</span>
           </div>
-          <h3 className={`text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-none transition-colors ${
+          <h3 className={`text-4xl md:text-7xl font-black mb-6 md:mb-8 tracking-tighter leading-[1.1] md:leading-none transition-colors ${
             theme === 'dark' ? "text-white" : "text-slate-900"
           }`}>Elite Academic Programs</h3>
-          <p className={`text-xl font-medium transition-colors max-w-3xl mx-auto leading-relaxed ${
+          <p className={`text-lg md:text-xl font-medium transition-colors max-w-3xl mx-auto leading-relaxed ${
             theme === 'dark' ? "text-slate-400" : "text-slate-600"
           }`}>
             Architect your success with programs engineered for high performance. 
@@ -94,32 +94,32 @@ const Home = () => {
       <TestimonialSlider />
 
       {/* Extreme CTA Section */}
-      <section className="py-32">
-        <div className="container mx-auto px-6">
+      <section className="py-20 md:py-32">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative bg-blue-600 rounded-[4rem] p-16 md:p-32 text-center overflow-hidden shadow-[0_50px_100px_-20px_rgba(37,99,235,0.4)]"
+            className="relative bg-blue-600 rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-32 text-center overflow-hidden shadow-[0_50px_100px_-20px_rgba(37,99,235,0.4)]"
           >
             {/* Animated Glow Elements */}
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
             <div className="absolute -top-[50%] -right-[20%] w-[1000px] h-[1000px] bg-white/10 rounded-full blur-[120px] pointer-events-none" />
             
-            <h3 className="text-5xl md:text-8xl font-black text-white mb-10 relative z-10 leading-[0.9] tracking-tighter">
-               Join The Next <br /> Generation.
+            <h3 className="text-4xl md:text-8xl font-black text-white mb-8 md:mb-10 relative z-10 leading-[1.1] md:leading-[0.9] tracking-tighter">
+               Join The Next <br className="hidden md:block" /> Generation.
             </h3>
-            <p className="text-blue-100 text-xl md:text-2xl mb-16 max-w-2xl mx-auto relative z-10 font-medium leading-relaxed">
+            <p className="text-blue-100 text-lg md:text-2xl mb-12 md:mb-16 max-w-2xl mx-auto relative z-10 font-medium leading-relaxed">
                Register now for a FREE diagnostic assessment and unlock your potential with India's most results-driven mentors.
             </p>
-            <div className="flex flex-col sm:flex-row gap-8 justify-center relative z-10">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-8 justify-center relative z-10">
               <Link to="/courses">
-                <button className="px-12 py-6 bg-white text-blue-600 font-black text-sm uppercase tracking-widest rounded-3xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95">
+                <button className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-white text-blue-600 font-black text-xs md:text-sm uppercase tracking-widest rounded-2xl md:rounded-3xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95">
                   Apply for Admission
                 </button>
               </Link>
               <Link to="/offline">
-                <button className="px-12 py-6 bg-blue-700 text-white font-black text-sm uppercase tracking-widest rounded-3xl hover:bg-blue-800 transition-all border border-blue-500/50 active:scale-95 flex items-center justify-center gap-3 shadow-xl">
+                <button className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-blue-700 text-white font-black text-xs md:text-sm uppercase tracking-widest rounded-2xl md:rounded-3xl hover:bg-blue-800 transition-all border border-blue-500/50 active:scale-95 flex items-center justify-center gap-3 shadow-xl">
                    Consult Expert <ArrowRight size={20} />
                 </button>
               </Link>

@@ -19,12 +19,12 @@ const TrustMarquee = () => {
         <motion.div 
           animate={{ x: [0, -1000] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 items-center px-10"
+          className="flex gap-16 md:gap-24 items-center px-10"
         >
           {brands.map((brand, i) => (
             <span 
               key={i} 
-              className={`text-2xl md:text-3xl font-black italic tracking-tighter opacity-30 transition-all cursor-default hover:opacity-100 hover:text-blue-600 ${
+              className={`text-xl md:text-3xl font-black italic tracking-tighter opacity-30 transition-all cursor-default hover:opacity-100 hover:text-blue-600 ${
                 theme === 'dark' ? "text-slate-400" : "text-slate-500"
               }`}
             >

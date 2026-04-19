@@ -77,7 +77,7 @@ const Hero = () => {
             </div>
 
             {/* Content Overlay */}
-            <div className="relative z-10 h-full w-full container mx-auto px-6 md:px-12 lg:px-24 flex flex-col justify-center">
+            <div className="relative z-10 h-full w-full container mx-auto px-4 md:px-12 lg:px-24 flex flex-col justify-center">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -88,16 +88,23 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="inline-block px-4 py-1.5 bg-blue-600/20 backdrop-blur-md border border-blue-500/30 text-blue-400 rounded-full text-xs font-bold uppercase tracking-widest mb-6"
+                  className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-blue-600/20 backdrop-blur-md border border-blue-500/30 text-blue-400 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6"
                 >
                   Featured Program
                 </motion.span>
-                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-6 leading-[1.1] tracking-tighter">
+                <h2 className="text-3xl md:text-6xl lg:text-8xl font-black text-white mb-4 md:mb-6 leading-[1.1] tracking-tighter">
                   {banners[currentSlide].title}
                 </h2>
-                <p className="text-lg md:text-2xl text-white/70 font-medium mb-10 max-w-2xl leading-relaxed">
+                <p className="text-base md:text-2xl text-white/70 font-medium mb-8 md:mb-10 max-w-2xl leading-relaxed">
                   {banners[currentSlide].subtitle}
                 </p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl md:hidden"
+                >
+                  {banners[currentSlide].cta}
+                </motion.button>
               </motion.div>
             </div>
           </motion.div>

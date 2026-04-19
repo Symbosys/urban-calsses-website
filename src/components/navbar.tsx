@@ -37,7 +37,7 @@ const Navbar = () => {
     >
       <div className="max-w-[1700px] mx-auto px-6">
         <div
-          className={`relative flex items-center justify-between h-20 px-10 rounded-[2.5rem] transition-all duration-700 border shadow-2xl ${
+          className={`relative flex items-center justify-between h-16 md:h-20 px-4 md:px-10 rounded-2xl md:rounded-[2.5rem] transition-all duration-700 border shadow-2xl ${
             scrolled
               ? theme === "dark"
                 ? "bg-[#0f172a]/80 backdrop-blur-2xl border-white/10 shadow-blue-900/40"
