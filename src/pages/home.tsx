@@ -34,26 +34,32 @@ const Home = () => {
       </div>
 
       {/* Trending Batches Section */}
-      <section className="py-16 md:py-24 relative overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 mb-12 md:mb-16">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-4 px-4 sm:px-0">
+      <section className="py-12 md:py-24 relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 mb-10 md:mb-16">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-4">
             <div className="max-w-xl">
               <h2
-                className={`text-3xl md:text-5xl font-black tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-none transition-colors ${
+                  theme === "dark" ? "text-white" : "text-slate-900"
+                }`}
               >
                 Trending Batches
               </h2>
-              <p className="text-slate-500 font-bold mt-3 uppercase text-[10px] sm:text-xs tracking-widest leading-relaxed">
+              <p className="text-slate-500 font-bold mt-3 uppercase text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-widest leading-relaxed">
                 Pick the best batch to accelerate your learning journey and
                 achieve your goals with expert guidance.
               </p>
             </div>
-            <Link to="/courses">
+            <Link to="/courses" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ x: 5 }}
-                className="text-blue-500 font-black flex items-center gap-2 text-xs uppercase tracking-widest"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 bg-blue-600/10 text-blue-500 rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all group lg:bg-transparent lg:p-0 lg:hover:bg-transparent lg:hover:text-blue-600"
               >
-                View All <ArrowRight size={16} />
+                View All Batches
+                <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all hidden lg:flex">
+                  <ArrowRight size={14} />
+                </div>
+                <ArrowRight size={14} className="lg:hidden" />
               </motion.button>
             </Link>
           </div>
