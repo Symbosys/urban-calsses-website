@@ -102,7 +102,7 @@ const BatchSlider = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className={`group relative p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border transition-all duration-700 min-w-[280px] sm:min-w-[320px] md:min-w-[450px] snap-center select-none ${
+              className={`group relative p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border transition-all duration-700 min-w-[280px] sx:min-w-[340px] sm:min-w-[380px] md:min-w-[450px] snap-center select-none ${
                 theme === 'dark' 
                   ? "bg-[#161b2c]/60 border-white/5 hover:border-blue-500/30" 
                   : "bg-white border-slate-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl"

@@ -15,7 +15,7 @@ const HybridLearning = () => {
           <div className="grid lg:grid-cols-2">
             
             {/* Left Content */}
-            <div className="p-8 md:p-12 lg:p-24 text-white flex flex-col justify-center space-y-8 md:space-y-10">
+            <div className="p-8 sm:p-12 md:p-16 lg:p-24 text-white flex flex-col justify-center space-y-8 md:space-y-10">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -24,12 +24,12 @@ const HybridLearning = () => {
                 <MapPin className="w-8 h-8 md:w-10 md:h-10 text-white" />
               </motion.div>
               
-              <div className="space-y-4 md:space-y-6">
-                <h2 className="text-3xl md:text-4xl lg:text-6xl font-black leading-[1.1] md:leading-[0.9] tracking-tighter">
-                   Experience Hybrid Learning at <span className="text-blue-500">Urban Vidyapeeth.</span>
+              <div className="space-y-6 md:space-y-6">
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] md:leading-[0.9] tracking-tighter">
+                   Explore Hybrid <br className="hidden md:block" /> Learning.
                 </h2>
-                <p className="text-slate-400 text-base md:text-lg lg:text-xl font-medium leading-relaxed max-w-xl">
-                  Bring your dreams to reality with our world-class offline infrastructure. India's best faculty is now in your city.
+                <p className="text-slate-400 text-lg md:text-xl lg:text-2xl font-medium leading-relaxed max-w-xl">
+                  Seamlessly transition between physical classrooms and digital excellence. The future of learning is here.
                 </p>
               </div>
 

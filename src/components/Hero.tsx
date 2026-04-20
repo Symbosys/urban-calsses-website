@@ -92,10 +92,10 @@ const Hero = () => {
                 >
                   Featured Program
                 </motion.span>
-                <h2 className="text-3xl md:text-6xl lg:text-8xl font-black text-white mb-4 md:mb-6 leading-[1.1] tracking-tighter">
+                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-4 md:mb-6 leading-[1.1] tracking-tighter">
                   {banners[currentSlide].title}
                 </h2>
-                <p className="text-base md:text-2xl text-white/70 font-medium mb-8 md:mb-10 max-w-2xl leading-relaxed">
+                <p className="text-sm md:text-2xl text-white/70 font-medium mb-8 md:mb-10 max-w-2xl leading-relaxed">
                   {banners[currentSlide].subtitle}
                 </p>
                 <motion.button

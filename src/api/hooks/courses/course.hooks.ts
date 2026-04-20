@@ -22,6 +22,18 @@ export const useCourses = (params: CourseFilters = {}) => {
   });
 };
 
+export const useFreeCourses = () => {
+  return useQuery({
+    queryKey: ["courses", "free"],
+    queryFn: async () => {
+      const { data } = await api.get<ApiResponse<{ courses: Course[] }>>("/courses/free/all", {
+        params: { status: "PUBLISHED" }
+      });
+      return data.data;
+    },
+  });
+};
+
 export const useCourse = (id: string) => {
   return useQuery({
     queryKey: ["courses", id],

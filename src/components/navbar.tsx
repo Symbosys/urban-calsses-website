@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon, ChevronDown, User, LogIn, LogOut } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
@@ -230,43 +231,75 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Extreme Premium Mobile Menu */}
-      {menuOpen && (
-        <div
-          className={`lg:hidden fixed inset-0 z-[90] p-6 pt-32 animate-in fade-in slide-in-from-top-10 duration-500 overflow-y-auto ${
-            theme === "dark" ? "bg-[#0b0f1a]" : "bg-slate-50"
-          }`}
-        >
-          <div className="flex flex-col gap-6">
-            {navLinks.map((link, i) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                style={{ animationDelay: `${i * 100}ms` }}
-                className={`text-4xl font-black uppercase tracking-tighter transition-all animate-in slide-in-from-left-4 ${
-                  location.pathname === link.path
-                    ? "text-blue-500"
-                    : theme === "dark"
-                      ? "text-slate-200"
-                      : "text-slate-800"
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="h-px bg-slate-800 my-4" />
-            <Link
-              to="/courses"
-              className="py-6 bg-blue-600 text-white font-black uppercase tracking-widest rounded-3xl text-center shadow-2xl shadow-blue-600/30"
-              onClick={() => setMenuOpen(false)}
+      {/* Extreme Premium Mobile Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] lg:hidden"
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setMenuOpen(false)} />
+            
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className={`absolute right-0 top-0 h-full w-[80%] max-w-sm p-8 shadow-2xl flex flex-col ${
+                theme === "dark" ? "bg-[#0f172a] border-l border-white/10" : "bg-white border-l border-slate-200"
+              }`}
             >
-              Book Free Counselling
-            </Link>
-          </div>
-        </div>
-      )}
-      
+              <div className="flex justify-between items-center mb-12">
+                <span className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Navigation</span>
+                <button 
+                  onClick={() => setMenuOpen(false)}
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                    theme === "dark" ? "bg-white/5 text-slate-300" : "bg-slate-100 text-slate-600"
+                  }`}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link, i) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={`text-3xl font-black uppercase tracking-tighter transition-all ${
+                      location.pathname === link.path
+                        ? "text-blue-500"
+                        : theme === "dark"
+                          ? "text-slate-200 hover:text-white"
+                          : "text-slate-800 hover:text-blue-600"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mt-auto pt-8 border-t border-white/5">
+                <Link
+                  to="/courses"
+                  className="block w-full py-5 bg-blue-600 text-white font-black uppercase tracking-widest rounded-2xl text-center shadow-lg shadow-blue-600/30 active:scale-95"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Explore Programs
+                </Link>
+                <p className="text-center mt-6 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">
+                  Urban Classes © 2026
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
