@@ -242,17 +242,17 @@ const BlogPage = () => {
         </div>
 
         {/* Newsletter Section */}
-        <section className="relative py-40 border-t border-white/5">
-           <div className="absolute inset-0 bg-blue-600/5 blur-[120px] rounded-full opacity-50" />
-           <div className={`relative p-20 rounded-[4rem] border flex flex-col lg:flex-row items-center gap-16 ${
+        <section className="relative py-20 lg:py-40 border-t border-white/5">
+           <div className="absolute inset-0 bg-blue-600/5 blur-[80px] lg:blur-[120px] rounded-full opacity-50" />
+           <div className={`relative p-8 sm:p-12 lg:p-20 rounded-3xl sm:rounded-[4rem] border flex flex-col lg:flex-row items-center gap-10 lg:gap-16 ${
             theme === 'dark' ? "bg-white/[0.03] border-white/10" : "bg-white border-slate-100 shadow-2xl shadow-blue-500/10"
            }`}>
                <div className="flex-1 text-center lg:text-left">
-                  <h2 className={`text-5xl md:text-6xl font-black mb-6 tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                    Never Miss an <br />
+                  <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 tracking-tighter leading-none ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                    Never Miss an <br className="hidden sm:block" />
                     <span className="text-blue-500">Expert Update.</span>
                   </h2>
-                  <p className={`text-lg font-medium leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`text-base sm:text-lg font-medium leading-relaxed max-w-xl mx-auto lg:mx-0 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
                     Join 50,000+ aspirants who receive our weekly newsletter on exam strategies and trending academic updates.
                   </p>
                </div>
@@ -261,11 +261,11 @@ const BlogPage = () => {
                      <input 
                         type="email" 
                         placeholder="Enter your email"
-                        className={`px-8 py-5 rounded-2xl border outline-none min-w-[300px] font-bold ${
-                          theme === 'dark' ? "bg-white/5 border-white/10 text-white" : "bg-slate-50 border-slate-200"
-                        }`}
+                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-2xl border outline-none sm:min-w-[300px] font-bold text-sm sm:text-base ${
+                          theme === 'dark' ? "bg-white/5 border-white/10 text-white focus:border-blue-500/50" : "bg-slate-50 border-slate-200 focus:border-blue-500"
+                        } transition-colors`}
                      />
-                     <button className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all">
+                     <button className="w-full sm:w-auto px-10 py-4 sm:py-5 bg-blue-600 text-white rounded-xl sm:rounded-2xl font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all">
                         Subscribe
                      </button>
                   </div>
