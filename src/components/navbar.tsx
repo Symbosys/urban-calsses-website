@@ -1,7 +1,17 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, ChevronDown, User, LogIn, LogOut } from "lucide-react";
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  ChevronDown,
+  User,
+  LogIn,
+  LogOut,
+  Fingerprint,
+} from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useAuthStore } from "../store/authStore";
 import logo from "../assets/Urban Classes Logo - 1 (1).png";
@@ -126,13 +136,15 @@ const Navbar = () => {
                 }`}
               >
                 <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xs">
-                  {isAuthenticated ? user?.name?.charAt(0) || "U" : <User size={14} />}
+                  {isAuthenticated ? (
+                    user?.name?.charAt(0) || "U"
+                  ) : (
+                    <User size={14} />
+                  )}
                 </div>
                 <ChevronDown
                   size={14}
-                  className={
-                    theme === "dark" ? "text-white" : "text-slate-900"
-                  }
+                  className={theme === "dark" ? "text-white" : "text-slate-900"}
                 />
               </button>
 
@@ -162,7 +174,9 @@ const Navbar = () => {
                     to="/profile"
                     onClick={() => setShowUserDropdown(false)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest mb-1 ${
-                      theme === 'dark' ? 'text-slate-300 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
+                      theme === "dark"
+                        ? "text-slate-300 hover:bg-white/5"
+                        : "text-slate-600 hover:bg-slate-100"
                     }`}
                   >
                     <User size={16} /> Profile
@@ -173,10 +187,12 @@ const Navbar = () => {
                     to="/auth/login"
                     onClick={() => setShowUserDropdown(false)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest mb-1 ${
-                      theme === 'dark' ? 'text-blue-400 hover:bg-blue-500/10' : 'text-blue-600 hover:bg-blue-50'
+                      theme === "dark"
+                        ? "text-blue-400 hover:bg-blue-500/10"
+                        : "text-blue-600 hover:bg-blue-50"
                     }`}
                   >
-                    <LogIn size={16} /> Login
+                    <Fingerprint size={16} /> Login
                   </Link>
 
                   {/* Logout Button */}
@@ -206,10 +222,47 @@ const Navbar = () => {
           </div>
 
           {/* Mobile UI */}
-          <div className="lg:hidden flex items-center gap-3">
+          <div className="lg:hidden flex items-center gap-2 sm:gap-3">
+            {/* Direct Login/Profile on Mobile */}
+            <div className="flex items-center gap-2 pr-2 border-r border-slate-500/20 mr-1">
+              {isAuthenticated ? (
+                <Link
+                  to="/profile"
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center text-white font-black text-[10px] shadow-lg transition-all active:scale-95 ${
+                    theme === 'dark' ? 'bg-blue-600' : 'bg-blue-500'
+                  }`}
+                >
+                  {user?.name?.charAt(0) || "U"}
+                </Link>
+              ) : (
+                <Link
+                  to="/auth/login"
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all active:scale-95 border ${
+                    theme === "dark"
+                      ? "bg-white/5 text-blue-400 border-white/10"
+                      : "bg-blue-50 text-blue-600 border-blue-100"
+                  }`}
+                >
+                  <Fingerprint size={18} />
+                </Link>
+              )}
+              {isAuthenticated && (
+                <button
+                  onClick={() => logout()}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all active:scale-95 border ${
+                    theme === "dark"
+                      ? "bg-white/5 text-rose-500 border-white/10"
+                      : "bg-rose-50 text-rose-500 border-rose-100"
+                  }`}
+                >
+                  <LogOut size={18} />
+                </button>
+              )}
+            </div>
+
             <button
               onClick={toggleTheme}
-              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-95 border ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all active:scale-95 border ${
                 theme === "dark"
                   ? "bg-white/5 text-yellow-400 border-white/10"
                   : "bg-slate-50 text-slate-700 border-slate-200"
@@ -219,7 +272,7 @@ const Navbar = () => {
             </button>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all ${
                 theme === "dark"
                   ? "bg-white/5 text-slate-300"
                   : "bg-slate-100 text-slate-600"
@@ -241,8 +294,11 @@ const Navbar = () => {
             className="fixed inset-0 z-[110] lg:hidden"
           >
             {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setMenuOpen(false)} />
-            
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+              onClick={() => setMenuOpen(false)}
+            />
+
             {/* Menu Panel */}
             <motion.div
               initial={{ x: "100%" }}
@@ -250,15 +306,23 @@ const Navbar = () => {
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className={`absolute right-0 top-0 h-full w-[80%] max-w-sm p-8 shadow-2xl flex flex-col ${
-                theme === "dark" ? "bg-[#0f172a] border-l border-white/10" : "bg-white border-l border-slate-200"
+                theme === "dark"
+                  ? "bg-[#0f172a] border-l border-white/10"
+                  : "bg-white border-l border-slate-200"
               }`}
             >
               <div className="flex justify-between items-center mb-12">
-                <span className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Navigation</span>
-                <button 
+                <span
+                  className={`text-xl font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                >
+                  Navigation
+                </span>
+                <button
                   onClick={() => setMenuOpen(false)}
                   className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                    theme === "dark" ? "bg-white/5 text-slate-300" : "bg-slate-100 text-slate-600"
+                    theme === "dark"
+                      ? "bg-white/5 text-slate-300"
+                      : "bg-slate-100 text-slate-600"
                   }`}
                 >
                   <X size={20} />
