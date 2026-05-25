@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { PlayCircle, Loader2 } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useFreeCourses } from "../api/hooks/courses/course.hooks";
 import { Link } from "react-router-dom";

@@ -1,24 +1,18 @@
-import { useState } from "react";
-import { useAuthStore } from "../store/authStore";
-import { useThemeStore } from "../store/themeStore";
-import { useStudentDashboard } from "../api/hooks/user/dashboard.hooks";
 import {
-  User,
-  Mail,
-  Phone,
-  Calendar,
-  ShieldCheck,
-  BookOpen,
-  Settings,
   Award,
-  LayoutDashboard,
-  LogOut,
-  ChevronRight,
+  BookOpen,
   CheckCircle,
   Clock,
+  LayoutDashboard,
   Loader2,
+  LogOut,
+  Settings
 } from "lucide-react";
+import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useStudentDashboard } from "../api/hooks/user/dashboard.hooks";
+import { useAuthStore } from "../store/authStore";
+import { useThemeStore } from "../store/themeStore";
 
 export default function ProfileDashboard() {
   const { user, isAuthenticated, logout } = useAuthStore();
