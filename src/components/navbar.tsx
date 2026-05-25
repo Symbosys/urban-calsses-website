@@ -8,7 +8,6 @@ import {
   Moon,
   ChevronDown,
   User,
-  LogIn,
   LogOut,
   Fingerprint,
 } from "lucide-react";
@@ -330,7 +329,7 @@ const Navbar = () => {
               </div>
 
               <div className="flex flex-col gap-6">
-                {navLinks.map((link, i) => (
+                {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.path}

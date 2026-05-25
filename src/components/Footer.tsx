@@ -22,7 +22,7 @@ const Footer = () => {
           : "bg-slate-50 text-slate-600 border-slate-200"
       } py-16`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-8 md:px-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
@@ -189,6 +189,16 @@ const Footer = () => {
         >
           <p>© 2026 Urban Classes. All rights reserved.</p>
           <div className="flex gap-8">
+            <span className="text-sm md:text-base">
+              devloped by{" "}
+              <a
+                href="https://www.symbosys.com/"
+                target="_blank"
+                  className="text-base md:text-lg font-semibold text-blue-800 underline underline-offset-2 hover:text-blue-900 transition-colors"
+                >
+                symbosys
+              </a>
+            </span>
             {/* <a href="#" className="hover:text-blue-500 transition-colors">
               Privacy Policy
             </a>
